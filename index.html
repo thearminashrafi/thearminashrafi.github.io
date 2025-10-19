@@ -71,10 +71,17 @@
       width: 400px; height: 400px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent);
       box-shadow: var(--shadow);
     }
-    .lead { font-size: clamp(28px, 4vw, 32px); line-height: 1.15; letter-spacing: -0.02em; font-weight: 800; margin: 8px 0 12px; }
-    .sub { font-size: 18px; color: var(--muted); margin-bottom: 16px; }
+    .lead { font-size: 28px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 800; margin: 10px 0 32px; }
+    .sub { font-size: 17px; color: var(--muted); margin-bottom: 20px; font-weight: 200; margin-top: 16px;} 
     .badges { display:flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 20px; }
-    .quick { display:flex; gap: 10px; flex-wrap: wrap; }
+    .badges .chip { font-size: var(--badge-size, 14px); }
+    .quick { 
+      display: flex; 
+      gap: 8px; 
+      flex-wrap: wrap; 
+      font-family: var(--quick-font, Inter, system-ui, sans-serif); 
+      font-size: var(--quick-size, 14px); /* Add this for manual size control */
+    }
     /* Sections */
     section { padding: 48px 0; border-top: 1px solid var(--border); }
     h2 { font-size: clamp(22px, 2.2vw, 28px); margin: 0 0 16px; letter-spacing: -0.01em; }
