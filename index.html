@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Armin Ashrafi — Research</title>
+  <meta name="description" content="Personal academic website for Armin Ashrafi — Master's student in AI/ML & Reinforcement Learning." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f7f7f7;
+      --text: #0f172a; /* slate-900 */
+      --muted: #475569; /* slate-600 */
+      --card: #ffffff;
+      /* University of Alberta colors as accents */
+      --accent: #007C41; /* UAlberta Green */
+      --accent-2: #FFDB05; /* UAlberta Gold */
+      --link: var(--accent);
+      --border: #e5e7eb;
+      --shadow: 0 10px 25px rgba(2, 6, 23, 0.08);
+      --radius: 16px;
+      --maxw: 1080px;
+      --code: #111827;
+    }
+    :root.dark {
+      --bg: #0b1020;
+      --bg-alt: #0f1528;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --card: #0d1326;
+      --link: #7ee787; /* soft green */
+      --border: #1f2937;
+      --shadow: 0 10px 25px rgba(0,0,0,0.45);
+      --code: #e5e7eb;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    /* Navbar */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(120%) blur(6px);
+      background: color-mix(in oklab, var(--bg) 80%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+    .brand { font-weight: 800; letter-spacing: -0.02em; }
+    .brand span { color: var(--accent); }
+    .nav a { font-weight: 600; }
+    .nav-links { display: flex; gap: 16px; align-items: center; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius: 999px; border:1px solid var(--border); background: var(--card); box-shadow: var(--shadow); color: var(--text); }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .ghost { background: transparent; border-color: var(--border); box-shadow:none; }
+    .accent { background: var(--accent); color: #fff; border-color: transparent; }
+    .chip { display:inline-flex; align-items:center; padding:6px 10px; border-radius: 999px; border:1px solid var(--border); background: var(--bg-alt); font-size: 12px; color: var(--muted); }
+    /* Hero */
+    .hero { padding: 56px 0 32px; }
+    .hero-grid { display:grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: center; }
+    .avatar {
+      width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent);
+      box-shadow: var(--shadow);
+    }
+    .lead { font-size: clamp(28px, 4vw, 44px); line-height: 1.15; letter-spacing: -0.02em; font-weight: 800; margin: 8px 0 12px; }
+    .sub { font-size: 18px; color: var(--muted); margin-bottom: 16px; }
+    .badges { display:flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 20px; }
+    .quick { display:flex; gap: 10px; flex-wrap: wrap; }
+    /* Sections */
+    section { padding: 48px 0; border-top: 1px solid var(--border); }
+    h2 { font-size: clamp(22px, 2.2vw, 28px); margin: 0 0 16px; letter-spacing: -0.01em; }
+    p { margin: 0 0 12px; }
+    .two-col { display:grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .card { border:1px solid var(--border); background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+    .pub { display:grid; grid-template-columns: auto 1fr; gap: 12px; padding: 14px; border:1px solid var(--border); border-radius: 12px; background: var(--bg-alt); }
+    .pub-year { font-weight: 700; color: var(--accent); width: 54px; }
+    .pub-title { font-weight: 700; }
+    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .project { display:flex; flex-direction: column; gap: 8px; }
+    .project h3 { margin: 0; font-size: 18px; }
+    .footer { text-align:center; color: var(--muted); padding: 40px 0 80px; border-top: 1px solid var(--border); }
+    .kicker { font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; }
+    .grad { background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display:none; }
+    }
+    @media (max-width: 580px) {
+      .grid { grid-template-columns: 1fr; }
+      .avatar { width: 160px; height: 160px; }
+    }
+    /* Code block styling for BibTeX snippet or examples */
+    pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+    pre { background: var(--bg-alt); border:1px solid var(--border); border-radius: 12px; padding: 14px; overflow:auto; color: var(--code); }
+    /* Back-to-top */
+    #toTop { position: fixed; right: 18px; bottom: 18px; opacity: 0; pointer-events: none; transition: .2s; }
+    #toTop.show { opacity: 1; pointer-events: auto; }
+  </style>
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Home">
+        <span>Armin</span> Ashrafi
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#projects">Projects</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#talks">Talks</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions" style="display:flex; gap:10px; align-items:center;">
+        <button id="themeToggle" class="btn ghost" aria-label="Toggle theme">🌙</button>
+        <a class="btn" href="#cv" onclick="document.getElementById('cv').scrollIntoView({behavior:'smooth'})">CV</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="intro-heading">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker">Hello!</div>
+          <h1 id="intro-heading" class="lead">I'm <span class="grad">Armin Ashrafi</span>, a Master's student exploring <em>reinforcement learning</em>, program synthesis, and world models.</h1>
+          <p class="sub">Currently at the University of Alberta (AMII / RLAI). I study how agents can learn structured, generalizable behaviors through latent programs and environment models.</p>
+          <div class="badges" aria-label="Affiliations">
+            <span class="chip">University of Alberta</span>
+            <span class="chip">AMII</span>
+            <span class="chip">RLAI</span>
+          </div>
+          <div class="quick">
+            <a class="btn accent" href="#publications">Recent work</a>
+            <a class="btn ghost" href="#projects">Projects</a>
+            <a class="btn ghost" href="#contact">Contact</a>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:center;">
+          <img class="avatar" alt="Portrait of Armin Ashrafi" src="https://images.unsplash.com/photo-1542326237-94b1c5a538b0?q=80&w=400&auto=format&fit=crop" />
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      <div class="two-col">
+        <div class="card">
+          <p>My work centers on <strong>neurosymbolic reinforcement learning</strong>, particularly program-synthesis agents (e.g., LEAPS VAE) and state representations for grid-world tasks. I enjoy designing clean JAX/Equinox systems and building tools that make iterative research faster and more reproducible.</p>
+          <p>Research interests: <em>model-based RL</em>, <em>world models</em>, <em>planning</em>, <em>causal structure</em>, <em>program induction</em>, <em>generalization</em>.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">News</h3>
+          <ul>
+            <li><strong>Oct 2025</strong> — Releasing a JAX port of LEAPS-<abbr title="Variational Auto-Encoder">VAE</abbr> components.</li>
+            <li><strong>Sep 2025</strong> — Talk: <em>Branchless JAX for RL environments</em>.</li>
+            <li><strong>Aug 2025</strong> — Open-sourced <em>WorldBatch</em> stateless environment utilities.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research -->
+    <section id="research" aria-labelledby="research-heading">
+      <h2 id="research-heading">Research</h2>
+      <div class="two-col">
+        <div class="card">
+          <p>I design <strong>latent program policies</strong> and <strong>syntax-aware decoders</strong> that combine differentiable learning with symbolic structure. My goal is fast adaptation with minimal supervision and strong safety constraints.</p>
+          <ul>
+            <li>LEAPS VAE in JAX/Equinox</li>
+            <li>Stateless Karel-like environments</li>
+            <li>Efficient branchless updates with <code>jax.lax.cond</code>/<code>eqx.tree_at</code></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Open-source</h3>
+          <ul>
+            <li><a href="#">coresets-replay</a> — replay + compression for continual RL.</li>
+            <li><a href="#">alDente</a> — neat JAX utilities for stateful→stateless conversions.</li>
+            <li><a href="#">leaps-jax</a> — an implementation sketch of LEAPS VAE.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications" aria-labelledby="pubs-heading">
+      <h2 id="pubs-heading">Publications & Preprints</h2>
+      <div class="card" style="margin-bottom:16px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <span class="chip">Selected</span>
+        <button class="btn ghost" onclick="filterPubs('all')">All</button>
+        <button class="btn ghost" onclick="filterPubs('2025')">2025</button>
+        <button class="btn ghost" onclick="filterPubs('2024')">2024</button>
+        <button class="btn ghost" onclick="filterPubs('preprint')">Preprints</button>
+      </div>
+      <div id="pubList" class="two-col">
+        <article class="pub" data-year="2025" data-type="preprint">
+          <div class="pub-year">2025</div>
+          <div>
+            <div class="pub-title">Latent Execution-Aware Program Synthesis for Structured RL</div>
+            <div class="pub-authors">A. Ashrafi</div>
+            <div class="pub-venue">arXiv (preprint)</div>
+            <div>
+              <a href="#">PDF</a> · <a href="#">Code</a> · <a href="#" onclick="toggleBib(this); return false;">BibTeX</a>
+            </div>
+            <pre class="bib" hidden>@inproceedings{ashrafi2025leaps,
+  title={Latent Execution-Aware Program Synthesis for Structured RL},
+  author={Ashrafi, Armin},
+  year={2025},
+  eprinttype={arXiv}
+}</pre>
+          </div>
+        </article>
+        <article class="pub" data-year="2024" data-type="paper">
+          <div class="pub-year">2024</div>
+          <div>
+            <div class="pub-title">WorldBatch: Stateless Grid Environments for JAX RL</div>
+            <div class="pub-authors">A. Ashrafi</div>
+            <div class="pub-venue">Workshop on Efficient RL</div>
+            <div>
+              <a href="#">PDF</a> · <a href="#">Code</a> · <a href="#" onclick="toggleBib(this); return false;">BibTeX</a>
+            </div>
+            <pre class="bib" hidden>@inproceedings{ashrafi2024worldbatch,
+  title={WorldBatch: Stateless Grid Environments for JAX RL},
+  author={Ashrafi, Armin},
+  booktitle={Workshop on Efficient RL},
+  year={2024}
+}</pre>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+      <div class="grid">
+        <div class="card project">
+          <h3>LEAPS VAE (JAX)</h3>
+          <p>Implementation of a VAE for latent program synthesis with syntax-aware decoding.</p>
+          <div class="badges"><span class="chip">JAX</span><span class="chip">Equinox</span><span class="chip">RL</span></div>
+          <a class="btn ghost" href="#">View code</a>
+        </div>
+        <div class="card project">
+          <h3>WorldBatch</h3>
+          <p>Stateless grid-world utilities with branchless updates and vectorization.</p>
+          <div class="badges"><span class="chip">JAX</span><span class="chip">Envs</span><span class="chip">Scan</span></div>
+          <a class="btn ghost" href="#">Docs</a>
+        </div>
+        <div class="card project">
+          <h3>Coresets Replay</h3>
+          <p>Tools for sample-efficient continual RL via coreset selection and replay.</p>
+          <div class="badges"><span class="chip">RL</span><span class="chip">Continual</span></div>
+          <a class="btn ghost" href="#">Read more</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaching -->
+    <section id="teaching" aria-labelledby="teaching-heading">
+      <h2 id="teaching-heading">Teaching</h2>
+      <div class="two-col">
+        <div class="card">
+          <ul>
+            <li>TA — Reinforcement Learning (CMPUT 609), Fall 2025</li>
+            <li>TA — Machine Learning, Winter 2025</li>
+          </ul>
+        </div>
+        <div class="card">
+          <p>I mentor students interested in RL, JAX, and program synthesis. If you'd like feedback on a project, feel free to reach out.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Talks -->
+    <section id="talks" aria-labelledby="talks-heading">
+      <h2 id="talks-heading">Talks</h2>
+      <div class="card">
+        <ul>
+          <li>Branchless JAX for RL Environments — AMII Reading Group (Sep 2025)</li>
+          <li>World Models and Program Induction — UAlberta RL Seminar (Jun 2025)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CV -->
+    <section id="cv" aria-labelledby="cv-heading">
+      <h2 id="cv-heading">Curriculum Vitae</h2>
+      <div class="two-col">
+        <div class="card">
+          <p>Download a PDF copy of my latest CV.</p>
+          <a class="btn accent" href="#" download>Download CV</a>
+        </div>
+        <div class="card">
+          <p>Also see my <a href="#">Google Scholar</a> and <a href="#">GitHub</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact</h2>
+      <div class="two-col">
+        <div class="card">
+          <p>Email: <a id="email" href="#">(click to reveal)</a></p>
+          <p>Office: Computing Science, University of Alberta</p>
+        </div>
+        <div class="card">
+          <p>I'm open to research chats and collaboration on topics around RL, JAX, and neurosymbolic methods.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div>© <span id="year"></span> Armin Ashrafi. Built with a lightweight static template. Theme accents in UAlberta <span title="Green">🟩</span>/<span title="Gold">🟨</span>.</div>
+      <div style="margin-top:8px">Licensed under CC BY-NC 4.0. You can reuse this template with attribution.</div>
+    </div>
+  </footer>
+
+  <a id="toTop" class="btn" href="#top" aria-label="Back to top">↑</a>
+
+  <!-- Structured data for Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Armin Ashrafi",
+    "affiliation": [{"@type": "CollegeOrUniversity", "name": "University of Alberta"}],
+    "jobTitle": "Master's Student, Computing Science",
+    "email": "mailto:armin@example.com",
+    "url": "https://example.com",
+    "sameAs": ["https://github.com/USERNAME", "https://scholar.google.com/citations?user=ID"],
+    "knowsAbout": ["Reinforcement Learning", "JAX", "Equinox", "Program Synthesis"]
+  }
+  </script>
+
+  <script>
+    // Theme toggle with localStorage
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const saved = localStorage.getItem('theme');
+    if ((saved === 'dark') || (!saved && prefersDark)) root.classList.add('dark');
+    toggle.textContent = root.classList.contains('dark') ? '☀️' : '🌙';
+    toggle.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      const darkNow = root.classList.contains('dark');
+      localStorage.setItem('theme', darkNow ? 'dark' : 'light');
+      toggle.textContent = darkNow ? '☀️' : '🌙';
+    });
+
+    // Back to top button
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 480) toTop.classList.add('show');
+      else toTop.classList.remove('show');
+    });
+
+    // Email reveal (simple obfuscation)
+    const emailLink = document.getElementById('email');
+    emailLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      const user = 'armin';
+      const host = 'ualberta.ca';
+      const addr = `${user}.${'ashrafi'}@${host}`;
+      emailLink.href = `mailto:${addr}`;
+      emailLink.textContent = addr;
+    });
+
+    // Year auto-update
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Publication filters
+    function filterPubs(filter) {
+      for (const el of document.querySelectorAll('#pubList .pub')) {
+        const year = el.getAttribute('data-year');
+        const type = el.getAttribute('data-type');
+        const show = (filter === 'all') || (filter === year) || (filter === type);
+        el.style.display = show ? 'grid' : 'none';
+      }
+    }
+    window.filterPubs = filterPubs;
+
+    // Toggle BibTeX blocks
+    window.toggleBib = (a) => {
+      const pre = a.parentElement.nextElementSibling;
+      pre.hidden = !pre.hidden;
+    };
+  </script>
+</body>
+</html>
