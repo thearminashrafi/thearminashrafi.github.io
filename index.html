@@ -9,112 +9,151 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #ffffff;
-      --bg-alt: #f7f7f7;
-      --text: #0f172a; /* slate-900 */
-      --muted: #475569; /* slate-600 */
-      --card: #ffffff;
-      /* University of Alberta colors as accents */
-      --accent: #007C41; /* UAlberta Green */
-      --accent-2: #FFDB05; /* UAlberta Gold */
-      --link: var(--accent);
-      --border: #e5e7eb;
-      --shadow: 0 10px 25px rgba(2, 6, 23, 0.08);
-      --radius: 16px;
-      --maxw: 1080px;
-      --code: #111827;
-    }
-    :root.dark {
-      --bg: #0b1020;
-      --bg-alt: #0f1528;
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --card: #0d1326;
-      --link: #7ee787; /* soft green */
-      --border: #1f2937;
-      --shadow: 0 10px 25px rgba(0,0,0,0.45);
-      --code: #e5e7eb;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    a { color: var(--link); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
-    /* Navbar */
-    .nav {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: saturate(120%) blur(6px);
-      background: color-mix(in oklab, var(--bg) 80%, transparent);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
-    .brand { font-weight: 800; letter-spacing: -0.02em; }
-    .brand span { color: var(--accent); }
-    .nav a { font-weight: 600; }
-    .nav-links { display: flex; gap: 16px; align-items: center; }
-    .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius: 999px; border:1px solid var(--border); background: var(--card); box-shadow: var(--shadow); color: var(--text); }
-    .btn:hover { text-decoration: none; transform: translateY(-1px); }
-    .ghost { background: transparent; border-color: var(--border); box-shadow:none; }
-    .accent { background: var(--accent); color: #fff; border-color: transparent; }
-    .chip { display:inline-flex; align-items:center; padding:6px 10px; border-radius: 999px; border:1px solid var(--border); background: var(--bg-alt); font-size: 12px; color: var(--muted); }
-    /* Hero */
-    .hero { padding: 56px 0 32px; }
-    .hero-grid { display:grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: center; }
-    .avatar {
-      width: 400px; height: 400px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent);
-      box-shadow: var(--shadow);
-    }
-    .lead { font-size: 28px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 800; margin: 10px 0 32px; }
-    .sub { font-size: 17px; color: var(--muted); margin-bottom: 20px; font-weight: 200; margin-top: 16px;} 
-    .badges { display:flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 20px; }
-    .badges .chip { font-size: var(--badge-size, 14px); }
-    .quick { 
-      display: flex; 
-      gap: 8px; 
-      flex-wrap: wrap; 
-      font-family: var(--quick-font, Inter, system-ui, sans-serif); 
-      font-size: var(--quick-size, 14px); /* Add this for manual size control */
-    }
-    /* Sections */
-    section { padding: 48px 0; border-top: 1px solid var(--border); }
-    h2 { font-size: clamp(22px, 2.2vw, 28px); margin: 0 0 16px; letter-spacing: -0.01em; }
-    p { margin: 0 0 12px; }
-    .two-col { display:grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .card { border:1px solid var(--border); background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
-    .pub { display:grid; grid-template-columns: auto 1fr; gap: 12px; padding: 14px; border:1px solid var(--border); border-radius: 12px; background: var(--bg-alt); }
-    .pub-year { font-weight: 700; color: var(--accent); width: 54px; }
-    .pub-title { font-weight: 700; }
-    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .project { display:flex; flex-direction: column; gap: 8px; }
-    .project h3 { margin: 0; font-size: 18px; }
-    .footer { text-align:center; color: var(--muted); padding: 40px 0 80px; border-top: 1px solid var(--border); }
-    .kicker { font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; }
-    .grad { background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    /* Responsive */
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .two-col { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: 1fr 1fr; }
-      .nav-links { display:none; }
-    }
-    @media (max-width: 580px) {
-      .grid { grid-template-columns: 1fr; }
-      .avatar { width: 480px; height: 480px; }
-    }
-    /* Code block styling for BibTeX snippet or examples */
-    pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-    pre { background: var(--bg-alt); border:1px solid var(--border); border-radius: 12px; padding: 14px; overflow:auto; color: var(--code); }
-    /* Back-to-top */
-    #toTop { position: fixed; right: 18px; bottom: 18px; opacity: 0; pointer-events: none; transition: .2s; }
-    #toTop.show { opacity: 1; pointer-events: auto; }
-  </style>
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f7f7f7;
+    --text: #0f172a;
+    --muted: #475569;
+    --card: #ffffff;
+    --accent: #007C41;
+    --accent-2: #FFDB05;
+    --link: var(--accent);
+    --border: #e5e7eb;
+    --shadow: 0 10px 25px rgba(2, 6, 23, 0.08);
+    --radius: 16px;
+    --maxw: 1080px;
+    --code: #111827;
+  }
+  :root.dark {
+    --bg: #0b1020;
+    --bg-alt: #0f1528;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --card: #0d1326;
+    --link: #7ee787;
+    --border: #1f2937;
+    --shadow: 0 10px 25px rgba(0,0,0,0.45);
+    --code: #e5e7eb;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  /* NEW: keep any image inside its container */
+  img { max-width: 100%; height: auto; display: block; }
+
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+  /* Navbar with safer fallback for color-mix */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.8); /* fallback */
+    backdrop-filter: saturate(120%) blur(6px);
+    border-bottom: 1px solid var(--border);
+  }
+  :root.dark .nav { background: rgba(11,16,32,0.7); } /* dark fallback */
+  @supports (background: color-mix(in oklab, white, black)) {
+    .nav { background: color-mix(in oklab, var(--bg) 80%, transparent); }
+  }
+
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+  .brand { font-weight: 800; letter-spacing: -0.02em; }
+  .brand span { color: var(--accent); }
+  .nav a { font-weight: 600; }
+  .nav-links { display: flex; gap: 16px; align-items: center; }
+
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius: 999px; border:1px solid var(--border); background: var(--card); box-shadow: var(--shadow); color: var(--text); }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .ghost { background: transparent; border-color: var(--border); box-shadow:none; }
+  .accent { background: var(--accent); color: #fff; border-color: transparent; }
+  .chip { display:inline-flex; align-items:center; padding:6px 10px; border-radius: 999px; border:1px solid var(--border); background: var(--bg-alt); font-size: 12px; color: var(--muted); }
+
+  /* Hero */
+  .hero { padding: 56px 0 32px; }
+  .hero-grid {
+    display:grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(16px, 3vw, 32px);
+    align-items: center;
+  }
+  /* Avatar: responsive (no fixed px), consistent circle */
+  .avatar {
+    width: min(60vw, 320px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+    box-shadow: var(--shadow);
+  }
+
+  /* Responsive, fluid headings */
+  .lead {
+    font-size: clamp(20px, 4.5vw, 28px);
+    line-height: 1.15; letter-spacing: -0.02em; font-weight: 800; margin: 10px 0 16px;
+  }
+  .sub { font-size: clamp(14px, 2.8vw, 17px); color: var(--muted); margin: 8px 0 20px; font-weight: 300; }
+
+  .badges { display:flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 20px; }
+  .badges .chip { font-size: var(--badge-size, 14px); }
+  .quick { display:flex; gap: 8px; flex-wrap: wrap; font-family: var(--quick-font, Inter, system-ui, sans-serif); font-size: var(--quick-size, 14px); }
+
+  /* Sections */
+  section { padding: 48px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: clamp(20px, 3.5vw, 28px); margin: 0 0 16px; letter-spacing: -0.01em; }
+  p { margin: 0 0 12px; }
+
+  /* Flexible grids that adapt without awkward breakpoints */
+  .two-col {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .card { border:1px solid var(--border); background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+
+  /* Publication item: keep year narrow but stable */
+  .pub { display:grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 14px; border:1px solid var(--border); border-radius: 12px; background: var(--bg-alt); }
+  .pub-year { font-weight: 700; color: var(--accent); width: 54px; }
+  .pub-title { font-weight: 700; }
+
+  .project { display:flex; flex-direction: column; gap: 8px; }
+  .project h3 { margin: 0; font-size: 18px; }
+
+  .footer { text-align:center; color: var(--muted); padding: 40px 0 80px; border-top: 1px solid var(--border); }
+  .kicker { font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; }
+  .grad { background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* Responsive adjustments */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .nav-links { display:none; }
+  }
+  @media (max-width: 580px) {
+    /* Remove the old 480px avatar; the new .avatar rule handles it */
+    main.container { padding: 0 16px; }
+  }
+
+  /* Code */
+  pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+  pre { background: var(--bg-alt); border:1px solid var(--border); border-radius: 12px; padding: 14px; overflow:auto; color: var(--code); }
+
+  /* Back-to-top */
+  #toTop { position: fixed; right: 18px; bottom: 18px; opacity: 0; pointer-events: none; transition: .2s; }
+  #toTop.show { opacity: 1; pointer-events: auto; }
+</style>
+
 </head>
 <body>
   <!-- Header / Nav -->
@@ -169,14 +208,14 @@
       <h2 id="about-heading">About</h2>
       <div class="two-col">
         <div class="card">
-          <p>My work centers on <strong>neurosymbolic reinforcement learning</strong>, particularly program-synthesis agents (e.g., LEAPS VAE) and state representations for grid-world tasks. I enjoy designing clean JAX/Equinox systems and building tools that make iterative research faster and more reproducible.</p>
-          <p>Research interests: <em>model-based RL</em>, <em>world models</em>, <em>planning</em>, <em>causal structure</em>, <em>program induction</em>, <em>generalization</em>.</p>
+          <p>I am really passionate about open-ended questions and curious about the world. </p><p>My work mostly centers on <strong>reinforcement learning</strong>, currently focusing on representing behavioral knowledge and sample efficiency in grid-worlds. In general I enjoy open ended research into understanding learning agents in sequential decision making tasks.</p>
+          <p>Research interests: <em>model-based RL</em>, <em>intrinsic motivation</em>, <em>world models</em>, <em>planning</em>, <em>causality</em>, <em>exploration</em>, <em>generalization</em>.</p>
         </div>
         <div class="card">
           <h3 style="margin-top:0">News</h3>
           <ul>
             <li><strong>Oct 2025</strong> — Releasing a JAX port of LEAPS-<abbr title="Variational Auto-Encoder">VAE</abbr> components.</li>
-            <li><strong>Sep 2025</strong> — Talk: <em>Branchless JAX for RL environments</em>.</li>
+            <li><strong>Aug 2025</strong> — Talk: <em>Neurosymbolic Representations</em>.</li>
             <li><strong>Aug 2025</strong> — Open-sourced <em>WorldBatch</em> stateless environment utilities.</li>
           </ul>
         </div>
@@ -259,22 +298,23 @@
       <h2 id="projects-heading">Projects</h2>
       <div class="grid">
         <div class="card project">
-          <h3>LEAPS VAE (JAX)</h3>
-          <p>Implementation of a VAE for latent program synthesis with syntax-aware decoding.</p>
-          <div class="badges"><span class="chip">JAX</span><span class="chip">Equinox</span><span class="chip">RL</span></div>
-          <a class="btn ghost" href="#">View code</a>
+          <h3>Time Discretization in Reinforcement Learning</h3>
+          <p>An investigation into how RL algorithms interact with various time discretization in Classical Control</p>
+          <div class="badges"><span class="chip">course project</span><span class="chip">investigation</span><span class="chip">RL</span></div>
+          <a class="btn ghost" href="assets/RL.pdf">Read more</a>
+          <a class="btn ghost" href="https://github.com/polionus/rlprj">View code</a>
         </div>
         <div class="card project">
-          <h3>WorldBatch</h3>
-          <p>Stateless grid-world utilities with branchless updates and vectorization.</p>
+          <h3>Learning Policy Spaces</h3>
+          <p>Investigating latent policy spaces with Variational Auto-Encoders</p>
           <div class="badges"><span class="chip">JAX</span><span class="chip">Envs</span><span class="chip">Scan</span></div>
-          <a class="btn ghost" href="#">Docs</a>
+          <a class="btn ghost" href="assets/Neurosymbolic_Programming_Project.pdf">Read more</a>
         </div>
         <div class="card project">
           <h3>Coresets Replay</h3>
-          <p>Tools for sample-efficient continual RL via coreset selection and replay.</p>
+          <p>Improvement of Experience Replay with coreset construction.</p>
           <div class="badges"><span class="chip">RL</span><span class="chip">Continual</span></div>
-          <a class="btn ghost" href="#">Read more</a>
+          <a class="btn ghost" href="assets/605.pdf">Read more</a>
         </div>
       </div>
     </section>
@@ -285,8 +325,13 @@
       <div class="two-col">
         <div class="card">
           <ul>
-            <li>TA — Reinforcement Learning (CMPUT 609), Fall 2025</li>
-            <li>TA — Machine Learning, Winter 2025</li>
+            <li>TA — Machine Learning I, (CMPUT 267) Winter 2025</li>
+            <li>TA - Machine Learning Essentials (CMPUT 466) Fall 2025</li>
+            <li>TA — Introduction to the Foundations of Computation II (CMPUT 175), Fall 2024</li>
+            <li>TA - Theory of Computation - Winter 2019</li>
+            <li>English as Second Language 2017 - 2024</li>
+            <li>French as a Second Language 2021 - 2024</li>
+            <li>Developed Online Courses on Probability, Linear Algebra and Logic in Persian</li>
           </ul>
         </div>
         <div class="card">
@@ -300,8 +345,8 @@
       <h2 id="talks-heading">Talks</h2>
       <div class="card">
         <ul>
-          <li>Branchless JAX for RL Environments — AMII Reading Group (Sep 2025)</li>
-          <li>World Models and Program Induction — UAlberta RL Seminar (Jun 2025)</li>
+          <li>Neurosymbolic AI to the Rescue? — MMA Reading Group (Aug 2025)</li>
+          <li>Policy Churn as Evidence for Natural Selection in RL research? — Adam White's Research Group (Sep 2025)</li>
         </ul>
       </div>
     </section>
@@ -312,10 +357,10 @@
       <div class="two-col">
         <div class="card">
           <p>Download a PDF copy of my latest CV.</p>
-          <a class="btn accent" href="#" download>Download CV</a>
+          <a class="btn accent" href="assets/Resume_PhD-2.pdf" download>Download CV</a>
         </div>
         <div class="card">
-          <p>Also see my <a href="#">Google Scholar</a> and <a href="#">GitHub</a>.</p>
+          <p>Also see my <a href="#">Google Scholar</a> and <a href="https://github.com/polionus">GitHub</a>.</p>
         </div>
       </div>
     </section>
