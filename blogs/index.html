@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Armin Ashrafi</title>
+  <meta name="description" content="Blog posts by Armin Ashrafi on reinforcement learning, JAX, and research notes." />
+
+  <!-- Fonts (same as main page) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&display=swap" rel="stylesheet">
+  <base href="./">
+
+
+  <!-- Styles: copied/adapted from your main page for perfect match -->
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f7f7f7;
+      --text: #0f172a;
+      --muted: #475569;
+      --card: #ffffff;
+      --accent: #007C41;
+      --accent-2: #FFDB05;
+      --link: var(--accent);
+      --border: #e5e7eb;
+      --shadow: 0 10px 25px rgba(2, 6, 23, 0.08);
+      --radius: 16px;
+      --maxw: 1080px;
+      --code: #111827;
+    }
+    :root.dark {
+      --bg: #0b1020;
+      --bg-alt: #0f1528;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --card: #0d1326;
+      --link: #7ee787;
+      --border: #1f2937;
+      --shadow: 0 10px 25px rgba(0,0,0,0.45);
+      --code: #e5e7eb;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+    /* Navbar */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,0.8); /* fallback */
+      backdrop-filter: saturate(120%) blur(6px);
+      border-bottom: 1px solid var(--border);
+    }
+    :root.dark .nav { background: rgba(11,16,32,0.7); }
+    @supports (background: color-mix(in oklab, white, black)) {
+      .nav { background: color-mix(in oklab, var(--bg) 80%, transparent); }
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+    .brand { font-weight: 800; letter-spacing: -0.02em; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 16px; align-items: center; }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* Buttons & chips */
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius: 999px; border:1px solid var(--border); background: var(--card); box-shadow: var(--shadow); color: var(--text); }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .ghost { background: transparent; border-color: var(--border); box-shadow:none; }
+    .accent { background: var(--accent); color: #fff; border-color: transparent; }
+    .chip { display:inline-flex; align-items:center; padding:6px 10px; border-radius: 999px; border:1px solid var(--border); background: var(--bg-alt); font-size: 12px; color: var(--muted); }
+
+    /* Headings & layout */
+    .page-head { padding: 40px 0 20px; border-bottom: 1px solid var(--border); }
+    .page-head h1 { font-size: clamp(24px, 4vw, 36px); letter-spacing: -0.01em; margin: 0 0 8px; }
+    .muted { color: var(--muted); }
+
+    .controls { display:flex; gap:10px; flex-wrap: wrap; align-items:center; margin: 16px 0; }
+    .search { flex: 1 1 240px; display:flex; align-items:center; gap:8px; padding: 10px 14px; border-radius: 999px; border:1px solid var(--border); background: var(--card); box-shadow: var(--shadow); }
+    .search input { border:0; outline:0; flex:1; background:transparent; color:var(--text); font: inherit; }
+
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; padding: 24px 0 40px; }
+    .card { border:1px solid var(--border); background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; display:flex; flex-direction:column; gap:8px; }
+    .card h3 { margin:0; font-size:18px; }
+    .card .meta { font-size: 13px; color: var(--muted); }
+    .card .excerpt { margin: 0; }
+
+    .footer { text-align:center; color: var(--muted); padding: 40px 0 80px; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/"><span>Armin</span> Ashrafi</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/#about">About</a>
+        <a href="/#research">Research</a>
+        <a href="/#publications">Publications</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#teaching">Teaching</a>
+        <a href="/#talks">Talks</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <div class="nav-actions" style="display:flex; gap:10px; align-items:center;">
+        <button id="themeToggle" class="btn ghost" aria-label="Toggle theme">🌙</button>
+        <a class="btn" href="/assets/Resume_PhD-2.pdf">CV</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page head -->
+  <main class="container">
+    <section class="page-head" aria-labelledby="blog-title">
+      <h1 id="blog-title">Blog</h1>
+      <p class="muted">Writing on reinforcement learning, JAX/Equinox, neurosymbolic ideas, and research notes.</p>
+
+      <div class="controls" role="group" aria-label="Filters and search">
+        <div class="chips" style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn ghost" data-filter="all">All</button>
+          <button class="btn ghost" data-filter="research">Research</button>
+          <button class="btn ghost" data-filter="notes">Notes</button>
+          <button class="btn ghost" data-filter="opinion">Opinion</button>
+        </div>
+        <label class="search" aria-label="Search posts">
+          🔎
+          <input id="q" type="search" placeholder="Search titles & excerpts…" />
+        </label>
+      </div>
+    </section>
+
+    <!-- Posts grid (rendered by JS from the array below) -->
+    <section>
+      <div id="posts" class="grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      © <span id="year"></span> Armin Ashrafi. Built with a lightweight static template. Theme accents in UAlberta <span title="Green">🟩</span>/<span title="Gold">🟨</span>.
+    </div>
+  </footer>
+
+  <!-- Optional structured data for the list page -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Blog",
+    "name":"Armin Ashrafi — Blog",
+    "url":"https://example.com/blog/",
+    "author":{"@type":"Person","name":"Armin Ashrafi"}
+  }
+  </script>
+
+  <script>
+    // Theme toggle (same as main)
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const saved = localStorage.getItem('theme');
+    if ((saved === 'dark') || (!saved && prefersDark)) root.classList.add('dark');
+    toggle.textContent = root.classList.contains('dark') ? '☀️' : '🌙';
+    toggle.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      const darkNow = root.classList.contains('dark');
+      localStorage.setItem('theme', darkNow ? 'dark' : 'light');
+      toggle.textContent = darkNow ? '☀️' : '🌙';
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // === Posts data ===
+    // Add/modify posts here. `href` should point to files made from your blog/template.html
+    const posts = [
+      {
+        title: "Latent Policy Spaces & Skill Acquisition",
+        href: "/template.html",
+        date: "2025-10-21",
+        read: 8,
+        tags: ["research"],
+        excerpt: "A practical recipe for learning latent policy spaces in grid-worlds with JAX + Equinox."
+      },
+      {
+        title: "Thinking in lax.scan",
+        href: "/blog/jax-scan-notes.html",
+        date: "2025-10-18",
+        read: 6,
+        tags: ["notes"],
+        excerpt: "Mental models for time-major layouts, masks, and vectorization pitfalls."
+      },
+      {
+        title: "Coreset Replay notes",
+        href: "/blog/coreset-replay-notes.html",
+        date: "2025-09-30",
+        read: 5,
+        tags: ["research","notes"],
+        excerpt: "Sketching experiments on submodular coresets for replay efficiency and stability."
+      }
+    ];
+
+    // Helpers
+    const fmtDate = d => new Date(d).toLocaleDateString(undefined, {year:'numeric', month:'short', day:'2-digit'});
+    const postHTML = p => `
+      <article class="card" data-tags="${p.tags.join(',')}" data-title="${p.title.toLowerCase()}" data-excerpt="${(p.excerpt||'').toLowerCase()}">
+        <header>
+          <h3><a href="${p.href}">${p.title}</a></h3>
+          <div class="meta">${fmtDate(p.date)} · ${p.read} min read · ${p.tags.join(', ')}</div>
+        </header>
+        <p class="excerpt">${p.excerpt}</p>
+        <div class="tags" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;">
+          ${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}
+        </div>
+      </article>
+    `;
+
+    // Render
+    const container = document.getElementById('posts');
+    function render(list) {
+      if (!list.length) {
+        container.innerHTML = `<div class="card"><p class="muted" style="margin:0">No posts found.</p></div>`;
+        return;
+      }
+      container.innerHTML = list
+        .sort((a,b) => new Date(b.date) - new Date(a.date))
+        .map(postHTML).join('');
+    }
+    render(posts.slice());
+
+    // Filters
+    let currentFilter = "all";
+    const filterBtns = document.querySelectorAll('[data-filter]');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentFilter = btn.getAttribute('data-filter');
+        applySearchAndFilter();
+      });
+    });
+
+    // Search
+    const q = document.getElementById('q');
+    q.addEventListener('input', applySearchAndFilter);
+
+    function applySearchAndFilter() {
+      const needle = (q.value || '').trim().toLowerCase();
+      const filtered = posts.filter(p => {
+        const matchesTag = currentFilter === 'all' || p.tags.includes(currentFilter);
+        const hay = (p.title + ' ' + (p.excerpt||'')).toLowerCase();
+        const matchesSearch = !needle || hay.includes(needle);
+        return matchesTag && matchesSearch;
+      });
+      render(filtered);
+    }
+  </script>
+</body>
+</html>
