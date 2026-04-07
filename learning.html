@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Learning Materials — Armin Ashrafi</title>
+  <meta name="description" content="Courses and notes created by Armin Ashrafi — linear algebra, probability, logic, reinforcement learning, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .resource {
+      display: grid; grid-template-columns: 48px 1fr;
+      gap: 20px; padding: 24px;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      transition: border-color var(--t);
+    }
+    .resource:hover { border-color: var(--accent); }
+    .resource-icon { font-size: 26px; padding-top: 2px; }
+    .resource-title { font-size: 16px; font-weight: 700; font-family: var(--sans); margin-bottom: 6px; }
+    .resource-desc { font-size: 14px; color: var(--text-2); line-height: 1.65; margin-bottom: 12px; }
+    .resource-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  </style>
+</head>
+<body data-page="learning">
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">Armin Ashrafi</a>
+    <nav class="nav-links">
+      <a href="research.html">Research</a>
+      <a href="blogs/index.html">Blog</a>
+      <a href="wiki/index.html">Wiki</a>
+      <a href="learning.html" class="active">Learning</a>
+      <a href="tutoring.html">Tutoring</a>
+    </nav>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="page">
+    <div class="wrap">
+
+      <div class="sh">
+        <span class="sh-label">Learning Materials</span>
+        <h1>Resources I've Made</h1>
+        <p>
+          I enjoy making complex topics accessible. Below are courses, notes, and tutorials I've created
+          or contributed to — from university-level mathematics to practical guides for ML research.
+        </p>
+      </div>
+
+      <!-- Mathematics -->
+      <h2 style="font-size:15px; font-family:var(--sans); font-weight:700; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:16px;">Mathematics</h2>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:48px;">
+
+        <div class="resource">
+          <div class="resource-icon">📐</div>
+          <div>
+            <div class="resource-title">Linear Algebra</div>
+            <p class="resource-desc">
+              A full online course covering vector spaces, matrix operations, eigenvalues, and singular value decomposition.
+              Developed for a Persian-speaking audience seeking rigorous foundations for machine learning.
+            </p>
+            <div class="resource-tags">
+              <span class="tag">Persian</span>
+              <span class="tag">Video Course</span>
+              <span class="tag">Mathematics</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="resource">
+          <div class="resource-icon">🎲</div>
+          <div>
+            <div class="resource-title">Probability Theory</div>
+            <p class="resource-desc">
+              Events, distributions, expectation, conditional probability, and Bayesian reasoning — taught
+              with intuition first, proofs second, for learners preparing for ML or statistics.
+            </p>
+            <div class="resource-tags">
+              <span class="tag">Persian</span>
+              <span class="tag">Video Course</span>
+              <span class="tag">Mathematics</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="resource">
+          <div class="resource-icon">⚙️</div>
+          <div>
+            <div class="resource-title">Logic &amp; Foundations of Computation</div>
+            <p class="resource-desc">
+              Propositional and first-order logic, proof strategies, and an introduction to computability theory.
+              Based on classic texts, adapted for online learners.
+            </p>
+            <div class="resource-tags">
+              <span class="tag">Persian</span>
+              <span class="tag">Video Course</span>
+              <span class="tag">Logic</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Machine Learning -->
+      <h2 style="font-size:15px; font-family:var(--sans); font-weight:700; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:16px;">Machine Learning & RL</h2>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:48px;">
+
+        <div class="resource">
+          <div class="resource-icon">🤖</div>
+          <div>
+            <div class="resource-title">Machine Learning I &amp; Essentials — TA Notes</div>
+            <p class="resource-desc">
+              Supplementary notes, worked examples, and practice problems from CMPUT 267 and CMPUT 466
+              at the University of Alberta. Covers supervised learning, optimization, and generalization.
+            </p>
+            <div class="resource-tags">
+              <span class="tag">English</span>
+              <span class="tag">Notes</span>
+              <span class="tag">University of Alberta</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="resource">
+          <div class="resource-icon">🎮</div>
+          <div>
+            <div class="resource-title">Reinforcement Learning Notes</div>
+            <p class="resource-desc">
+              Personal reading notes on RL algorithms and theory — MDPs, value functions, policy gradients,
+              model-based methods — following Sutton &amp; Barto and recent literature.
+            </p>
+            <div class="resource-tags">
+              <span class="tag">English</span>
+              <span class="tag">Notes</span>
+              <span class="tag">In Progress</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="resource">
+          <div class="resource-icon">⚡</div>
+          <div>
+            <div class="resource-title">JAX for RL Researchers</div>
+            <p class="resource-desc">
+              A practical guide to writing fast reinforcement learning code in JAX:
+              <code style="font-family:ui-monospace,monospace;font-size:.85em;background:var(--bg-2);padding:1px 5px;border-radius:4px;">lax.scan</code>,
+              <code style="font-family:ui-monospace,monospace;font-size:.85em;background:var(--bg-2);padding:1px 5px;border-radius:4px;">vmap</code>,
+              Equinox models, and vectorized environments.
+            </p>
+            <div class="resource-tags">
+              <span class="tag">English</span>
+              <span class="tag">Tutorial</span>
+              <span class="tag">In Progress</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Note -->
+      <div style="border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;background:var(--bg-2);">
+        <p style="font-size:14px;color:var(--text-2);margin:0;">
+          Most materials are actively being refined. If you'd like early access or have a request for a specific topic,
+          <a href="tutoring.html">reach out</a> — I'm happy to share drafts.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="blogs/index.html">Blog</a>
+      <a href="tutoring.html">Tutoring</a>
+    </nav>
+    <p class="footer-copy">© <span id="year"></span> Armin Ashrafi</p>
+  </div>
+</footer>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme');
+  const dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme:dark)').matches);
+  if (dark) root.classList.add('dark');
+  btn.textContent = root.classList.contains('dark') ? '☀️' : '🌙';
+  btn.addEventListener('click', () => {
+    root.classList.toggle('dark');
+    const isDark = root.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    btn.textContent = isDark ? '☀️' : '🌙';
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
