@@ -17,14 +17,17 @@
       margin-bottom: 48px;
     }
     .subject {
-      display: flex; align-items: center; gap: 12px;
+      display: flex; align-items: flex-start; gap: 12px;
       padding: 14px 16px;
       border: 1px solid var(--border); border-radius: var(--radius);
       font-size: 14px; font-weight: 500;
       transition: all var(--t);
     }
     .subject:hover { border-color: var(--accent); color: var(--accent); }
-    .subject-icon { font-size: 20px; }
+    .subject-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .subject-body { display: flex; flex-direction: column; gap: 3px; }
+    .subject-name { font-weight: 600; }
+    .subject-note { font-size: 12px; color: var(--muted); font-weight: 400; }
 
     .step { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
     .step:last-child { border-bottom: none; }
@@ -37,6 +40,18 @@
     }
     .step-title { font-size: 15px; font-weight: 700; font-family: var(--sans); margin-bottom: 4px; }
     .step-desc { font-size: 14px; color: var(--text-2); line-height: 1.6; }
+
+    .meta-strip {
+      display: flex; flex-wrap: wrap; gap: 24px;
+      padding: 20px 24px;
+      background: var(--bg-2); border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .meta-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    .meta-value { font-size: 14px; font-weight: 600; color: var(--text); }
+    .meta-value.available { color: var(--accent); }
 
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
@@ -54,6 +69,7 @@
     .form-group select:focus,
     .form-group textarea:focus { border-color: var(--accent); }
     .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-hint { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
     @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
   </style>
@@ -85,25 +101,79 @@
         <span class="sh-label">Private Instruction</span>
         <h1>Tutoring</h1>
         <p>
-          I offer one-on-one sessions tailored to your goals — whether you are working through a university course,
-          preparing for a qualifying exam, or exploring machine learning for the first time.
-          I have been tutoring since 2017 across mathematics, computer science, and languages.
+          I offer one-on-one sessions tailored to your goals — whether you are working through a
+          university course, preparing for a qualifying exam, or exploring machine learning for the
+          first time. I am a Master's student in Reinforcement Learning at the University of Alberta
+          (RLAI / AMII) and have been tutoring since 2017 across mathematics, computer science, and languages.
         </p>
+      </div>
+
+      <!-- At-a-glance meta strip -->
+      <div class="meta-strip">
+        <div class="meta-item">
+          <span class="meta-label">Availability</span>
+          <span class="meta-value available">Currently accepting students</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Format</span>
+          <span class="meta-value">Online (Zoom / Meet) · Edmonton in-person on request</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Languages</span>
+          <span class="meta-value">English · Farsi · French</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Rate</span>
+          <span class="meta-value">Contact me for current rates</span>
+        </div>
       </div>
 
       <!-- Subjects -->
       <h2 style="font-size:15px; font-family:var(--sans); font-weight:700; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:16px;">Subjects</h2>
       <div class="subject-grid">
-        <div class="subject"><span class="subject-icon">🧮</span> Linear Algebra</div>
-        <div class="subject"><span class="subject-icon">🎲</span> Probability &amp; Statistics</div>
-        <div class="subject"><span class="subject-icon">⚙️</span> Logic &amp; Theory of Computation</div>
-        <div class="subject"><span class="subject-icon">🤖</span> Machine Learning</div>
-        <div class="subject"><span class="subject-icon">🎮</span> Reinforcement Learning</div>
-        <div class="subject"><span class="subject-icon">🐍</span> Python &amp; JAX</div>
-        <div class="subject"><span class="subject-icon">💻</span> Algorithms &amp; Data Structures</div>
-        <div class="subject"><span class="subject-icon">🇫🇷</span> French (FSL)</div>
-        <div class="subject"><span class="subject-icon">🇬🇧</span> English (ESL)</div>
-        <div class="subject"><span class="subject-icon">🔬</span> Research Mentorship</div>
+        <div class="subject">
+          <span class="subject-icon">🧮</span>
+          <div class="subject-body"><span class="subject-name">Linear Algebra</span></div>
+        </div>
+        <div class="subject">
+          <span class="subject-icon">🎲</span>
+          <div class="subject-body"><span class="subject-name">Probability &amp; Statistics</span></div>
+        </div>
+        <div class="subject">
+          <span class="subject-icon">⚙️</span>
+          <div class="subject-body"><span class="subject-name">Logic &amp; Theory of Computation</span></div>
+        </div>
+        <div class="subject">
+          <span class="subject-icon">🤖</span>
+          <div class="subject-body"><span class="subject-name">Machine Learning</span></div>
+        </div>
+        <div class="subject">
+          <span class="subject-icon">🎮</span>
+          <div class="subject-body"><span class="subject-name">Reinforcement Learning</span></div>
+        </div>
+        <div class="subject">
+          <span class="subject-icon">🐍</span>
+          <div class="subject-body"><span class="subject-name">Python &amp; JAX</span></div>
+        </div>
+        <div class="subject">
+          <span class="subject-icon">💻</span>
+          <div class="subject-body"><span class="subject-name">Algorithms &amp; Data Structures</span></div>
+        </div>
+        <div class="subject">
+          <span class="subject-icon">🇫🇷</span>
+          <div class="subject-body"><span class="subject-name">French (FSL)</span></div>
+        </div>
+        <div class="subject">
+          <span class="subject-icon">🇬🇧</span>
+          <div class="subject-body"><span class="subject-name">English (ESL)</span></div>
+        </div>
+        <div class="subject">
+          <span class="subject-icon">🔬</span>
+          <div class="subject-body">
+            <span class="subject-name">Research Mentorship</span>
+            <span class="subject-note">Paper reading, grad school prep, finding a research direction</span>
+          </div>
+        </div>
       </div>
 
       <!-- How it works -->
@@ -113,21 +183,21 @@
           <div class="step-num">1</div>
           <div>
             <div class="step-title">Send a message</div>
-            <div class="step-desc">Fill in the form below with your topic, goals, and general availability.</div>
+            <div class="step-desc">Fill in the form below with your topic, goals, and general availability. I reply within one to two days.</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div>
-            <div class="step-title">Short intro call</div>
-            <div class="step-desc">We have a free 20-minute call to discuss your needs and make sure we are a good fit.</div>
+            <div class="step-title">Free intro call</div>
+            <div class="step-desc">We have a free 20-minute call to discuss your needs, agree on a rate, and make sure we are a good fit before committing to anything.</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div>
             <div class="step-title">Regular sessions</div>
-            <div class="step-desc">Recurring sessions, paced to you — we go at whatever depth and speed works best.</div>
+            <div class="step-desc">Recurring sessions paced to you — we go at whatever depth and speed works best, online or in-person.</div>
           </div>
         </div>
       </div>
@@ -150,8 +220,9 @@
             <input id="f-name" type="text" name="name" placeholder="Your name" required />
           </div>
           <div class="form-group">
-            <label for="f-email">Email</label>
+            <label for="f-email">Your email</label>
             <input id="f-email" type="email" name="email" placeholder="you@example.com" required />
+            <span class="form-hint">So I can reply to you directly.</span>
           </div>
         </div>
         <div class="form-group">
@@ -173,7 +244,7 @@
         </div>
         <div class="form-group">
           <label for="f-msg">Message</label>
-          <textarea id="f-msg" name="message" placeholder="Tell me about your goals and what you're working on."></textarea>
+          <textarea id="f-msg" name="message" placeholder="Tell me about your goals, what course or project you're working on, and your general availability."></textarea>
         </div>
         <button type="submit" class="btn btn-fill" style="margin-top:4px;">Send Message</button>
         <p id="form-note" style="font-size:13px;color:var(--accent);margin-top:12px;display:none;">Opening your email client…</p>
@@ -221,11 +292,14 @@
   document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const name    = document.getElementById('f-name').value;
+    const email   = document.getElementById('f-email').value;
     const subject = document.getElementById('f-subject').value || 'Tutoring Inquiry';
     const message = document.getElementById('f-msg').value;
-    const to = 'armin.ashrafi@ualberta.ca';
+    const to  = 'armin.ashrafi@ualberta.ca';
     const sub = encodeURIComponent('Tutoring: ' + subject);
-    const body = encodeURIComponent(`Hi Armin,\n\nMy name is ${name}.\n\n${message}`);
+    const body = encodeURIComponent(
+      `Hi Armin,\n\nMy name is ${name} and you can reach me at ${email}.\n\n${message}`
+    );
     window.location.href = `mailto:${to}?subject=${sub}&body=${body}`;
     document.getElementById('form-note').style.display = 'block';
   });
