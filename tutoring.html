@@ -53,25 +53,6 @@
     .meta-value { font-size: 14px; font-weight: 600; color: var(--text); }
     .meta-value.available { color: var(--accent); }
 
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-    .form-group:last-of-type { margin-bottom: 0; }
-    .form-group label { font-size: 13px; font-weight: 600; color: var(--text-2); }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      padding: 10px 13px; border-radius: 7px;
-      border: 1.5px solid var(--border); background: var(--bg);
-      color: var(--text); font: inherit; font-size: 14px;
-      transition: border-color var(--t); outline: none;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus { border-color: var(--accent); }
-    .form-group textarea { resize: vertical; min-height: 110px; }
-    .form-hint { font-size: 12px; color: var(--muted); margin-top: 2px; }
-
-    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body data-page="tutoring">
@@ -101,9 +82,10 @@
         <span class="sh-label">One-on-one</span>
         <h1>Tutoring</h1>
         <p>
-          I have been tutoring since 2017 in mathematics, CS, and languages. I am currently a
-          Master's student in RL at UAlberta, so for ML and math topics I can go as deep as needed.
-          Sessions are online or in-person in Edmonton.
+          I have been tutoring since 2017 and genuinely enjoy it — there is something satisfying
+          about finding the right way to explain something until it clicks. I am currently doing my
+          Master's in RL at UAlberta, so for ML and math I can go as deep as you need. Sessions are
+          online or in-person in Waterloo.
         </p>
       </div>
 
@@ -115,7 +97,7 @@
         </div>
         <div class="meta-item">
           <span class="meta-label">Format</span>
-          <span class="meta-value">Online · Edmonton in-person</span>
+          <span class="meta-value">Online · Waterloo in-person</span>
         </div>
         <div class="meta-item">
           <span class="meta-label">Languages</span>
@@ -123,7 +105,7 @@
         </div>
         <div class="meta-item">
           <span class="meta-label">Rate</span>
-          <span class="meta-value">Ask me</span>
+          <span class="meta-value">Negotiable — just ask</span>
         </div>
       </div>
 
@@ -203,51 +185,15 @@
     </div>
   </div>
 
-  <!-- Contact form -->
+  <!-- Contact -->
   <div class="page">
     <div class="wrap">
       <div class="sh">
         <span class="sh-label">Contact</span>
         <h2>Write to me</h2>
-        <p>Or email me directly at <a id="emailReveal" href="#">(click to reveal)</a>.</p>
+        <p>Email is the best way to reach me. Just introduce yourself, say what you are working on, and we will go from there.</p>
       </div>
-
-      <form id="contactForm" style="max-width:520px;">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="f-name">Name</label>
-            <input id="f-name" type="text" name="name" placeholder="Your name" required />
-          </div>
-          <div class="form-group">
-            <label for="f-email">Your email</label>
-            <input id="f-email" type="email" name="email" placeholder="you@example.com" required />
-            <span class="form-hint">So I can reply to you directly.</span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="f-subject">Topic</label>
-          <select id="f-subject" name="subject">
-            <option value="">Select a subject…</option>
-            <option>Linear Algebra</option>
-            <option>Probability &amp; Statistics</option>
-            <option>Logic &amp; Theory of Computation</option>
-            <option>Machine Learning</option>
-            <option>Reinforcement Learning</option>
-            <option>Python / JAX Programming</option>
-            <option>Algorithms &amp; Data Structures</option>
-            <option>French as a Second Language</option>
-            <option>English as a Second Language</option>
-            <option>Research Mentorship</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="f-msg">Message</label>
-          <textarea id="f-msg" name="message" placeholder="What are you working on, and what would you like help with?"></textarea>
-        </div>
-        <button type="submit" class="btn btn-fill" style="margin-top:4px;">Send Message</button>
-        <p id="form-note" style="font-size:13px;color:var(--accent);margin-top:12px;display:none;">Opening your email client…</p>
-      </form>
+      <a id="emailBtn" href="#" class="btn btn-fill" style="font-size:15px; padding:12px 24px;">Show email address</a>
     </div>
   </div>
 
@@ -281,26 +227,13 @@
   });
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  document.getElementById('emailReveal').addEventListener('click', function(e) {
+  document.getElementById('emailBtn').addEventListener('click', function(e) {
     e.preventDefault();
-    const a = 'armin.ashrafi@ualberta.ca';
-    this.href = 'mailto:' + a;
-    this.textContent = a;
-  });
-
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const name    = document.getElementById('f-name').value;
-    const email   = document.getElementById('f-email').value;
-    const subject = document.getElementById('f-subject').value || 'Tutoring Inquiry';
-    const message = document.getElementById('f-msg').value;
-    const to  = 'armin.ashrafi@ualberta.ca';
-    const sub = encodeURIComponent('Tutoring: ' + subject);
-    const body = encodeURIComponent(
-      `Hi Armin,\n\nMy name is ${name} and you can reach me at ${email}.\n\n${message}`
-    );
-    window.location.href = `mailto:${to}?subject=${sub}&body=${body}`;
-    document.getElementById('form-note').style.display = 'block';
+    const addr = 'armin.ashrafi' + '@' + 'ualberta.ca';
+    this.textContent = addr;
+    this.href = 'mailto:' + addr;
+    this.classList.remove('btn-fill');
+    this.style.fontFamily = 'var(--sans)';
   });
 </script>
 </body>
