@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Armin Ashrafi</title>
+  <meta name="description" content="Writing by Armin Ashrafi on reinforcement learning, mathematics, JAX, and ideas worth exploring." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .controls {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      align-items: center; margin-bottom: 40px;
+    }
+    .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 6px 14px; border-radius: 6px;
+      font-size: 13px; font-weight: 600;
+      border: 1.5px solid var(--border);
+      background: var(--bg); color: var(--text-2);
+      cursor: pointer; transition: all var(--t);
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .search-wrap {
+      flex: 1 1 240px; display: flex; align-items: center; gap: 10px;
+      padding: 8px 14px; border-radius: 7px;
+      border: 1.5px solid var(--border); background: var(--bg);
+      transition: border-color var(--t);
+    }
+    .search-wrap:focus-within { border-color: var(--accent); }
+    .search-wrap input { border: none; outline: none; flex: 1; background: transparent; color: var(--text); font: inherit; font-size: 14px; }
+
+    .post-list { display: flex; flex-direction: column; gap: 0; }
+    .post-item {
+      display: grid; grid-template-columns: 100px 1fr;
+      gap: 24px; padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      transition: all var(--t);
+    }
+    .post-item:first-child { border-top: 1px solid var(--border); }
+    .post-item:hover .post-item-title { color: var(--accent); }
+    .post-item-date { font-size: 13px; color: var(--muted); font-weight: 500; padding-top: 3px; }
+    .post-item-title { font-size: 17px; font-family: var(--serif); font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.3; }
+    .post-item-title a { color: inherit; text-decoration: none; }
+    .post-item-title a:hover { text-decoration: none; }
+    .post-item-excerpt { font-size: 14px; color: var(--text-2); line-height: 1.65; margin-bottom: 10px; }
+    .post-item-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+    .empty { padding: 48px 0; color: var(--muted); font-size: 15px; }
+
+    @media (max-width: 520px) {
+      .post-item { grid-template-columns: 1fr; gap: 8px; }
+      .post-item-date { padding-top: 0; }
+    }
+  </style>
+</head>
+<body data-page="blog">
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="../index.html">Armin Ashrafi</a>
+    <nav class="nav-links">
+      <a href="../research.html">Research</a>
+      <a href="index.html" class="active">Blog</a>
+      <a href="../wiki/index.html">Wiki</a>
+      <a href="../learning.html">Learning</a>
+      <a href="../tutoring.html">Tutoring</a>
+    </nav>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="page">
+    <div class="wrap">
+
+      <div class="sh">
+        <span class="sh-label">Writing</span>
+        <h1>Blog</h1>
+        <p>Thoughts on reinforcement learning, mathematics, JAX, and ideas I find worth exploring.</p>
+      </div>
+
+      <div class="controls">
+        <div class="filter-group" role="group" aria-label="Filter by tag">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="research">Research</button>
+          <button class="filter-btn" data-filter="notes">Notes</button>
+          <button class="filter-btn" data-filter="opinion">Opinion</button>
+          <button class="filter-btn" data-filter="math">Math</button>
+        </div>
+        <label class="search-wrap">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--muted);flex-shrink:0"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="searchInput" type="search" placeholder="Search…" autocomplete="off" />
+        </label>
+      </div>
+
+      <div id="postList" class="post-list" aria-live="polite"></div>
+      <div id="emptyState" class="empty" style="display:none">No posts found.</div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <nav class="footer-nav">
+      <a href="../index.html">Home</a>
+      <a href="../research.html">Research</a>
+      <a href="../learning.html">Learning</a>
+      <a href="../tutoring.html">Tutoring</a>
+    </nav>
+    <p class="footer-copy">© <span id="year"></span> Armin Ashrafi</p>
+  </div>
+</footer>
+
+<script>
+  // Theme
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme');
+  const dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme:dark)').matches);
+  if (dark) root.classList.add('dark');
+  btn.textContent = root.classList.contains('dark') ? '☀️' : '🌙';
+  btn.addEventListener('click', () => {
+    root.classList.toggle('dark');
+    const isDark = root.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    btn.textContent = isDark ? '☀️' : '🌙';
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ─── Posts data ─────────────────────────────────────────────────
+  // Add a new entry here for each post. Set href to the post file path.
+  const posts = [
+    {
+      title: "Latent Policy Spaces & Skill Acquisition",
+      href: "template.html",
+      date: "2025-10-21",
+      read: 8,
+      tags: ["research"],
+      excerpt: "A practical recipe for learning latent policy spaces in grid-worlds with JAX + Equinox."
+    },
+    {
+      title: "Thinking in lax.scan",
+      href: "template.html",
+      date: "2025-10-18",
+      read: 6,
+      tags: ["notes"],
+      excerpt: "Mental models for time-major layouts, masks, and vectorization pitfalls in JAX."
+    },
+    {
+      title: "Coreset Replay Notes",
+      href: "template.html",
+      date: "2025-09-30",
+      read: 5,
+      tags: ["research", "notes"],
+      excerpt: "Sketching experiments on submodular coresets for replay efficiency and training stability."
+    }
+  ];
+
+  const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+
+  function postHTML(p) {
+    const tags = p.tags.map(t => `<span class="tag${t==='research'?' tag-accent':''}">${t}</span>`).join('');
+    return `
+      <div class="post-item" data-tags="${p.tags.join(',')}" data-search="${(p.title+' '+(p.excerpt||'')).toLowerCase()}">
+        <div class="post-item-date">${fmt(p.date)}</div>
+        <div>
+          <div class="post-item-title"><a href="${p.href}">${p.title}</a></div>
+          <p class="post-item-excerpt">${p.excerpt}</p>
+          <div class="post-item-meta">${tags}<span style="font-size:12px;color:var(--muted);">${p.read} min read</span></div>
+        </div>
+      </div>`;
+  }
+
+  const list = document.getElementById('postList');
+  const empty = document.getElementById('emptyState');
+  let currentFilter = 'all';
+
+  function render(items) {
+    const sorted = items.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+    if (!sorted.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+    list.innerHTML = sorted.map(postHTML).join('');
+  }
+
+  function applyFilters() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    render(posts.filter(p => {
+      const tagOk = currentFilter === 'all' || p.tags.includes(currentFilter);
+      const textOk = !q || (p.title + ' ' + (p.excerpt||'')).toLowerCase().includes(q);
+      return tagOk && textOk;
+    }));
+  }
+
+  render(posts.slice());
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      currentFilter = b.dataset.filter;
+      applyFilters();
+    });
+  });
+  document.getElementById('searchInput').addEventListener('input', applyFilters);
+</script>
+</body>
+</html>

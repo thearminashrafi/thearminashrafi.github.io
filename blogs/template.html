@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>[Post Title] — Armin Ashrafi</title>
+  <meta name="description" content="[One-sentence summary]" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <!-- Syntax highlighting -->
+  <link id="hljs-light" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github.min.css">
+  <link id="hljs-dark"  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github-dark.min.css" disabled>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11/lib/core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11/lib/languages/python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11/lib/languages/javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11/lib/languages/bash.min.js"></script>
+  <!-- Markdown rendering (optional — see comment below) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <style>
+    /* Reading progress bar */
+    #progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--accent); z-index: 200; transition: width .1s linear; width: 0; }
+
+    .post-head { padding: 56px 0 32px; border-bottom: 1px solid var(--border); }
+    .back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); font-weight: 500; margin-bottom: 24px; }
+    .back:hover { color: var(--accent); text-decoration: none; }
+    .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .post-title { font-size: clamp(24px, 4.5vw, 38px); margin-bottom: 14px; }
+    .post-meta { font-size: 13px; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; }
+    .post-nav { display: flex; justify-content: space-between; gap: 12px; padding: 0 0 64px; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="../index.html">Armin Ashrafi</a>
+    <nav class="nav-links">
+      <a href="../research.html">Research</a>
+      <a href="index.html" class="active">Blog</a>
+      <a href="../wiki/index.html">Wiki</a>
+      <a href="../learning.html">Learning</a>
+      <a href="../tutoring.html">Tutoring</a>
+    </nav>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!--
+  ─── HOW TO USE THIS TEMPLATE ────────────────────────────────────
+
+  1. Duplicate this file and rename it (e.g. my-post.html).
+  2. Update the <title> and <meta name="description">.
+  3. Fill in the post header below (title, date, tags, read time).
+  4. Write content in one of two ways:
+
+     Option A — HTML:  write directly inside the <article class="prose"> block.
+
+     Option B — Markdown (recommended):
+       a. Uncomment the <script id="md-content"> block below.
+       b. Write your post in Markdown inside that script tag.
+       c. Delete the placeholder <p> in the article.
+       The page will parse and render it automatically.
+
+  5. Add the post to the posts array in blogs/index.html.
+  ──────────────────────────────────────────────────────────────── -->
+
+  <header class="post-head">
+    <a class="back" href="index.html">← All posts</a>
+    <div class="post-tags">
+      <span class="tag tag-accent">research</span>
+      <span class="tag">JAX</span>
+    </div>
+    <h1 class="post-title">[Post Title]</h1>
+    <div class="post-meta">
+      <span>Armin Ashrafi</span>
+      <span>·</span>
+      <span>[Month DD, YYYY]</span>
+      <span>·</span>
+      <span>[X] min read</span>
+    </div>
+  </header>
+
+  <!-- Option B: Markdown content — uncomment and fill in -->
+  <!--
+  <script id="md-content" type="text/markdown">
+## Introduction
+
+Write your post in **Markdown** here. Standard syntax works:
+
+- bullet lists
+- `inline code`
+- **bold**, *italic*
+
+## Code
+
+```python
+import jax
+import jax.numpy as jnp
+```
+
+## Math (plain text)
+
+You can describe math in words or use standard notation inline.
+
+> A key blockquote or insight.
+
+## Conclusion
+
+Wrap up with what you learned.
+  </script>
+  -->
+
+  <!-- Option A: Raw HTML -->
+  <article class="prose" id="prose-content">
+    <p><em>Replace this paragraph. Or use the Markdown option (see HTML comments above).</em></p>
+
+    <h2>Section Heading</h2>
+    <p>Write your post content here. Example inline code: <code>lax.scan</code>.</p>
+
+    <pre><code class="language-python"># Example
+import jax.numpy as jnp
+
+def step(carry, x):
+    return carry + x, carry</code></pre>
+
+    <h3>Takeaways</h3>
+    <ul>
+      <li>Key point one</li>
+      <li>Key point two</li>
+    </ul>
+
+    <blockquote>A short pull-quote or key idea.</blockquote>
+
+    <p>Closing thoughts and further reading.</p>
+  </article>
+
+  <nav class="post-nav">
+    <a class="btn" href="index.html">← All posts</a>
+  </nav>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <nav class="footer-nav">
+      <a href="../index.html">Home</a>
+      <a href="../research.html">Research</a>
+      <a href="../learning.html">Learning</a>
+      <a href="../tutoring.html">Tutoring</a>
+    </nav>
+    <p class="footer-copy">© <span id="year"></span> Armin Ashrafi</p>
+  </div>
+</footer>
+
+<script>
+  // Theme
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme');
+  const dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme:dark)').matches);
+  if (dark) root.classList.add('dark');
+  function syncTheme() {
+    const isDark = root.classList.contains('dark');
+    btn.textContent = isDark ? '☀️' : '🌙';
+    document.getElementById('hljs-light').disabled = isDark;
+    document.getElementById('hljs-dark').disabled  = !isDark;
+  }
+  syncTheme();
+  btn.addEventListener('click', () => {
+    root.classList.toggle('dark');
+    const isDark = root.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    syncTheme();
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Markdown rendering
+  const mdEl = document.getElementById('md-content');
+  if (mdEl) {
+    marked.setOptions({ gfm: true });
+    document.getElementById('prose-content').innerHTML = marked.parse(mdEl.textContent.trim());
+  }
+
+  // Syntax highlighting
+  document.querySelectorAll('.prose pre code').forEach(b => hljs.highlightElement(b));
+
+  // Reading progress
+  const bar = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const prose = document.querySelector('.prose');
+    if (!prose) return;
+    const pct = Math.min(100, Math.max(0,
+      (-prose.getBoundingClientRect().top / (prose.offsetHeight - window.innerHeight)) * 100
+    ));
+    bar.style.width = pct + '%';
+  });
+</script>
+</body>
+</html>
