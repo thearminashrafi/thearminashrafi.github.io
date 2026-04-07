@@ -1,6 +1,7 @@
 ---
 title: Wiki Home
-tags: [overview]
+tags:
+  - overview
 date: 2025-10-01
 ---
 
