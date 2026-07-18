@@ -10,45 +10,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .hero {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 48px;
-      align-items: center;
-      padding: 80px 0 72px;
-    }
+    .hero { padding: 64px 0 8px; }
     .avatar {
-      width: 160px; height: 160px;
+      width: 108px; height: 108px;
       border-radius: 50%; object-fit: cover;
-      border: 3px solid var(--border);
+      float: left; margin: 4px 24px 16px 0;
+      border: 1px solid var(--border);
     }
     .hero-name {
-      font-size: clamp(30px, 5vw, 42px);
+      font-size: clamp(26px, 5vw, 34px);
       margin-bottom: 6px; color: var(--text);
     }
     .hero-role {
-      font-size: 16px; color: var(--text-2);
-      margin-bottom: 20px; line-height: 1.6;
+      font-size: 15px; color: var(--text-2);
+      margin-bottom: 16px; line-height: 1.6;
       font-family: var(--sans); font-weight: 400;
     }
     .hero-bio {
-      font-size: 15px; color: var(--text-2);
-      line-height: 1.75; max-width: 54ch;
-      margin-bottom: 24px;
+      font-size: 16px; color: var(--text-2);
     }
-    .hero-links { display: flex; gap: 10px; flex-wrap: wrap; }
-    .nav-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      padding-bottom: 80px;
+    .hero-links {
+      clear: both;
+      display: flex; gap: 4px 18px; flex-wrap: wrap;
+      padding-top: 20px; font-family: var(--sans);
     }
-    @media (max-width: 600px) {
-      .hero { grid-template-columns: 1fr; text-align: center; gap: 28px; }
-      .avatar { margin: 0 auto; }
-      .hero-bio { margin: 0 auto 24px; }
-      .hero-links { justify-content: center; }
-      .nav-grid { grid-template-columns: 1fr; }
+    .hero-links a {
+      font-size: 14px; font-weight: 600; color: var(--accent);
+      text-decoration: none; border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+    }
+    .hero-links a:hover { border-color: var(--accent); }
+    @media (max-width: 480px) {
+      .avatar { float: none; margin: 0 0 16px; }
     }
   </style>
 </head>
@@ -60,9 +53,7 @@
     <nav class="nav-links">
       <a href="research.html">Research</a>
       <a href="blogs/index.html">Blog</a>
-      <a href="wiki/index.html">Wiki</a>
-      <a href="learning.html">Learning</a>
-      <a href="tutoring.html">Tutoring</a>
+      <a href="one-on-one.html">One-on-One</a>
     </nav>
     <div class="nav-right">
       <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
@@ -76,50 +67,44 @@
     <!-- Profile -->
     <section class="hero">
       <img class="avatar" src="assets/armin.jpg" alt="Armin Ashrafi" />
-      <div>
-        <h1 class="hero-name">Armin Ashrafi</h1>
-        <p class="hero-role">Master's Student · University of Alberta · RLAI / AMII</p>
-        <p class="hero-bio">
-          I study how reinforcement learning agents can discover and reuse behavioral
-          knowledge through latent representations. I also teach mathematics, machine
-          learning, and languages.
-        </p>
-        <div class="hero-links">
-          <a class="btn btn-fill" href="research.html">My Research</a>
-          <a class="btn" href="https://github.com/polionus" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn" href="https://www.linkedin.com/in/armin-ashrafi-041006183/" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn" id="emailBtn" href="#">Email</a>
-          <a class="btn" href="assets/Resume_PhD-2.pdf" download>CV</a>
-        </div>
+      <h1 class="hero-name">Armin Ashrafi</h1>
+      <p class="hero-role">Master's Student · University of Alberta · RLAI / AMII</p>
+      <p class="hero-bio">
+        I study how reinforcement learning agents can discover and reuse behavioral
+        knowledge through latent representations. I also teach mathematics, machine
+        learning, and languages.
+      </p>
+      <div class="hero-links">
+        <a href="research.html">My Research</a>
+        <a href="https://github.com/polionus" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/armin-ashrafi-041006183/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" id="emailBtn">Email</a>
+        <a href="assets/Resume_PhD-2.pdf" download>CV</a>
       </div>
     </section>
 
-    <!-- Navigation cards -->
-    <div class="nav-grid">
-      <a class="nav-card" href="research.html">
-        <span class="nav-card-icon">🔬</span>
-        <span class="nav-card-title">Research</span>
-        <p class="nav-card-desc">Reinforcement learning, latent policy representations, experience replay, and academic publications.</p>
-        <span class="nav-card-arrow">→</span>
-      </a>
-      <a class="nav-card" href="blogs/index.html">
-        <span class="nav-card-icon">✍️</span>
-        <span class="nav-card-title">Blog</span>
-        <p class="nav-card-desc">Writing on RL, mathematics, JAX, and ideas I find interesting.</p>
-        <span class="nav-card-arrow">→</span>
-      </a>
-      <a class="nav-card" href="learning.html">
-        <span class="nav-card-icon">📖</span>
-        <span class="nav-card-title">Learning Materials</span>
-        <p class="nav-card-desc">Courses and notes I've created — linear algebra, probability, logic, and more.</p>
-        <span class="nav-card-arrow">→</span>
-      </a>
-      <a class="nav-card" href="tutoring.html">
-        <span class="nav-card-icon">🎓</span>
-        <span class="nav-card-title">Tutoring</span>
-        <p class="nav-card-desc">One-on-one sessions in mathematics, ML, programming, and languages. Get in touch.</p>
-        <span class="nav-card-arrow">→</span>
-      </a>
+    <!-- Sections -->
+    <div class="page">
+      <div class="link-list">
+        <a href="research.html">
+          <div>
+            <div class="link-list-title">Research</div>
+            <p class="link-list-desc">Reinforcement learning, latent policy representations, experience replay, and academic publications.</p>
+          </div>
+        </a>
+        <a href="blogs/index.html">
+          <div>
+            <div class="link-list-title">Blog</div>
+            <p class="link-list-desc">Writing on RL, mathematics, JAX, and ideas I find interesting.</p>
+          </div>
+        </a>
+        <a href="one-on-one.html">
+          <div>
+            <div class="link-list-title">One-on-One</div>
+            <p class="link-list-desc">Sessions in mathematics, ML, programming, and languages. Get in touch.</p>
+          </div>
+        </a>
+      </div>
     </div>
 
   </div>
@@ -130,9 +115,7 @@
     <nav class="footer-nav">
       <a href="research.html">Research</a>
       <a href="blogs/index.html">Blog</a>
-      <a href="wiki/index.html">Wiki</a>
-      <a href="learning.html">Learning</a>
-      <a href="tutoring.html">Tutoring</a>
+      <a href="one-on-one.html">One-on-One</a>
     </nav>
     <p class="footer-copy">© <span id="year"></span> Armin Ashrafi · University of Alberta</p>
   </div>
