@@ -117,32 +117,7 @@
 
   // ─── Posts data ─────────────────────────────────────────────────
   // Add a new entry here for each post. Set href to the post file path.
-  const posts = [
-    {
-      title: "Latent Policy Spaces & Skill Acquisition",
-      href: "template.html",
-      date: "2025-10-21",
-      read: 8,
-      tags: ["research"],
-      excerpt: "A practical recipe for learning latent policy spaces in grid-worlds with JAX + Equinox."
-    },
-    {
-      title: "Thinking in lax.scan",
-      href: "template.html",
-      date: "2025-10-18",
-      read: 6,
-      tags: ["notes"],
-      excerpt: "Mental models for time-major layouts, masks, and vectorization pitfalls in JAX."
-    },
-    {
-      title: "Coreset Replay Notes",
-      href: "template.html",
-      date: "2025-09-30",
-      read: 5,
-      tags: ["research", "notes"],
-      excerpt: "Sketching experiments on submodular coresets for replay efficiency and training stability."
-    }
-  ];
+  const posts = [];
 
   const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
 
