@@ -10,88 +10,51 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Timeline */
-    .tl { display: flex; flex-direction: column; }
-    .tl-item {
-      display: grid; grid-template-columns: 110px 1fr;
-      gap: 20px; padding-bottom: 28px; position: relative;
+    /* Intro */
+    .research-intro {
+      display: flex; gap: 40px; align-items: flex-start;
+      justify-content: space-between;
     }
-    .tl-item::after {
-      content: ''; position: absolute;
-      left: 98px; top: 22px; bottom: 0;
-      width: 1px; background: var(--border);
+    .research-avatar {
+      width: 132px; height: 132px; flex-shrink: 0;
+      border-radius: 50%; object-fit: cover;
+      border: 1px solid var(--border); order: 2;
     }
-    .tl-item:last-child::after { display: none; }
-    .tl-item:last-child { padding-bottom: 0; }
-    .tl-dot {
-      position: absolute; left: 93px; top: 5px;
-      width: 11px; height: 11px; border-radius: 50%;
-      background: var(--accent); border: 2px solid var(--bg);
-    }
-    .tl-date { font-size: 12px; font-weight: 600; color: var(--muted); padding-top: 3px; text-align: right; }
-    .tl-title { font-size: 15px; font-weight: 700; font-family: var(--sans); margin-bottom: 3px; }
-    .tl-sub { font-size: 13px; color: var(--muted); }
-
-    /* Pub list */
-    .pub {
-      display: grid; grid-template-columns: 52px 1fr;
-      gap: 16px; padding: 18px 20px;
-      border: 1px solid var(--border); border-radius: var(--radius);
-      transition: border-color var(--t);
-    }
-    .pub:hover { border-color: var(--accent); }
-    .pub-year { font-size: 13px; font-weight: 700; color: var(--accent); padding-top: 2px; }
-    .pub-title { font-size: 15px; font-weight: 700; font-family: var(--sans); margin-bottom: 4px; }
-    .pub-status { font-size: 12px; color: var(--muted); }
-
-    /* Talks */
-    .talk { padding: 14px 0; border-bottom: 1px solid var(--border); display: flex; gap: 16px; }
-    .talk:last-child { border-bottom: none; }
-    .talk-date { font-size: 12px; font-weight: 600; color: var(--accent); white-space: nowrap; min-width: 72px; padding-top: 2px; }
-    .talk-body { font-size: 14px; color: var(--text-2); }
-
-    /* Experiments */
-    .exp-controls { margin-bottom: 28px; }
-    .exp-filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
-    .exp-btn {
-      padding: 6px 14px; border-radius: 6px;
-      font-size: 13px; font-weight: 600;
-      border: 1.5px solid var(--border);
-      background: var(--bg); color: var(--text-2);
-      cursor: pointer; transition: all var(--t);
-    }
-    .exp-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .exp-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-    .exp-list { display: flex; flex-direction: column; gap: 0; }
-    .exp-item {
-      display: grid; grid-template-columns: 90px 1fr;
-      gap: 20px; padding: 22px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .exp-item:first-child { border-top: 1px solid var(--border); }
-    .exp-left { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; }
-    .exp-date { font-size: 12px; font-weight: 600; color: var(--muted); }
-    .exp-status {
-      display: inline-block; padding: 3px 8px; border-radius: 4px;
-      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
-    }
-    .exp-status.active   { background: var(--a-soft); color: var(--accent); }
-    .exp-status.done     { background: var(--bg-2); color: var(--muted); }
-    .exp-status.planned  { background: var(--bg-2); color: var(--muted); font-style: italic; }
-    .exp-title { font-size: 15px; font-weight: 700; font-family: var(--sans); margin-bottom: 5px; color: var(--text); }
-    .exp-desc  { font-size: 14px; color: var(--text-2); line-height: 1.65; margin-bottom: 10px; }
-    .exp-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
-    .exp-tags  { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-
-    @media (max-width: 520px) {
-      .exp-item { grid-template-columns: 1fr; gap: 6px; }
+    @media (max-width: 600px) {
+      .research-intro { flex-direction: column-reverse; gap: 20px; }
     }
 
+    /* Publications */
+    .pub-list { display: flex; flex-direction: column; gap: 36px; }
+    .pub-entry { display: grid; grid-template-columns: 200px 1fr; gap: 24px; }
+    .pub-thumb { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); }
+    .pub-entry-title { font-family: var(--sans); font-weight: 700; font-size: 16px; margin-bottom: 8px; color: var(--text); line-height: 1.4; }
+    .pub-entry-authors { font-size: 14px; color: var(--text-2); margin-bottom: 4px; line-height: 1.5; }
+    .pub-entry-authors strong { color: var(--text); }
+    .pub-entry-venue { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+    .pub-entry-links { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; font-family: var(--sans); }
+    .pub-link {
+      font-size: 13px; font-weight: 600; color: var(--accent);
+      background: none; border: none; padding: 0; cursor: pointer;
+      text-decoration: none; border-bottom: 1px solid var(--border);
+      font-family: var(--sans);
+    }
+    .pub-link:hover { border-color: var(--accent); }
+    .pub-link.disabled { color: var(--muted); cursor: default; pointer-events: none; border-color: transparent; }
+    .pub-entry-summary { font-size: 14px; color: var(--text-2); font-style: italic; margin: 0; }
+    .pub-expand {
+      margin-top: 14px; padding: 14px 16px;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 13.5px;
+      color: var(--text-2); line-height: 1.7;
+    }
+    .pub-expand[hidden] { display: none; }
+    pre.pub-expand {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      white-space: pre-wrap; overflow-x: auto;
+    }
     @media (max-width: 560px) {
-      .tl-item { grid-template-columns: 72px 1fr; }
-      .tl-item::after { left: 62px; }
-      .tl-dot { left: 57px; }
+      .pub-entry { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -110,94 +73,20 @@
 
 <main>
 
-  <!-- Statement -->
+  <!-- Intro -->
   <div class="page">
     <div class="wrap">
-      <div class="sh">
-        <span class="sh-label">Academic Work</span>
-        <h1>Research</h1>
-        <p>
-          I study <strong>reinforcement learning</strong> — specifically how agents can discover, represent,
-          and reuse behavioral knowledge. My current work spans latent policy spaces and sample-efficient
-          experience replay, with a broader interest in continual learning and active inference.
-        </p>
-      </div>
-
-      <div class="g2">
+      <div class="research-intro">
         <div>
-          <h3 style="font-size:15px; font-family:var(--sans); font-weight:700; margin-bottom:12px;">Current Projects</h3>
-          <ul style="display:flex;flex-direction:column;gap:10px;">
-            <li style="font-size:14px;color:var(--text-2);padding-left:14px;border-left:2px solid var(--accent);">
-              Latent search over policy representations in grid-world environments
-            </li>
-            <li style="font-size:14px;color:var(--text-2);padding-left:14px;border-left:2px solid var(--accent);">
-              Coreset-based experience replay for improved sample efficiency
-            </li>
-            <li style="font-size:14px;color:var(--text-2);padding-left:14px;border-left:2px solid var(--border);">
-              Continual learning and non-stationary agent dynamics (side interest)
-            </li>
-          </ul>
+          <span class="sh-label">Academic Work</span>
+          <h1 style="font-size:clamp(26px, 4.5vw, 34px); margin-bottom:12px;">Research</h1>
+          <p style="font-size:16px; color:var(--text-2); max-width:56ch; line-height:1.7;">
+            I study <strong>reinforcement learning</strong> — specifically how agents can discover, represent,
+            and reuse behavioral knowledge. My current work spans latent policy spaces and sample-efficient
+            experience replay, with a broader interest in continual learning and active inference.
+          </p>
         </div>
-        <div>
-          <h3 style="font-size:15px; font-family:var(--sans); font-weight:700; margin-bottom:12px;">Links I find interesting</h3>
-          <ul style="display:flex;flex-direction:column;gap:8px;">
-            <li style="font-size:14px;"><a href="http://incompleteideas.net" target="_blank" rel="noopener">Incomplete Ideas</a> — Rich Sutton's personal site</li>
-            <li style="font-size:14px;"><a href="https://www.lesswrong.com/posts/pdaGN6pQyQarFHXF4/reward-is-not-the-optimization-target" target="_blank" rel="noopener">Reward is not the Optimization Target</a></li>
-            <li style="font-size:14px;"><a href="https://docs.jax.dev/en/latest/notebooks/thinking_in_jax.html" target="_blank" rel="noopener">Thinking in JAX</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Education -->
-  <div class="page">
-    <div class="wrap">
-      <div class="sh">
-        <span class="sh-label">Background</span>
-        <h2>Education & Teaching</h2>
-      </div>
-      <div class="tl">
-        <div class="tl-item">
-          <div class="tl-date">2024 –</div>
-          <div class="tl-dot"></div>
-          <div>
-            <div class="tl-title">M.Sc. Computing Science</div>
-            <div class="tl-sub">University of Alberta · RLAI / AMII</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-date">2025 Fall</div>
-          <div class="tl-dot"></div>
-          <div>
-            <div class="tl-title">TA — Machine Learning Essentials (CMPUT 466)</div>
-            <div class="tl-sub">University of Alberta</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-date">2025 Winter</div>
-          <div class="tl-dot"></div>
-          <div>
-            <div class="tl-title">TA — Machine Learning I (CMPUT 267)</div>
-            <div class="tl-sub">University of Alberta</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-date">2024 Fall</div>
-          <div class="tl-dot"></div>
-          <div>
-            <div class="tl-title">TA — Foundations of Computation II (CMPUT 175)</div>
-            <div class="tl-sub">University of Alberta</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-date">2019</div>
-          <div class="tl-dot"></div>
-          <div>
-            <div class="tl-title">TA — Theory of Computation</div>
-            <div class="tl-sub">Winter 2019</div>
-          </div>
-        </div>
+        <img class="research-avatar" src="assets/armin.jpg" alt="Armin Ashrafi" />
       </div>
     </div>
   </div>
@@ -207,109 +96,37 @@
     <div class="wrap">
       <div class="sh">
         <span class="sh-label">Output</span>
-        <h2>Publications & Preprints</h2>
+        <h2>Publications</h2>
       </div>
-      <div style="display:flex; flex-direction:column; gap:12px;">
-        <div class="pub">
-          <div class="pub-year">2025</div>
+
+      <div class="pub-list">
+        <div class="pub-entry">
+          <img class="pub-thumb" src="assets/endpoint-replay.png" alt="Figure from Endpoint Replay paper" />
           <div>
-            <div class="pub-title">Learning Latent Policies for Skill Acquisition</div>
-            <div class="pub-status">Work in progress · Reinforcement Learning, Variational Methods</div>
-          </div>
-        </div>
-        <div class="pub">
-          <div class="pub-year">2025</div>
-          <div>
-            <div class="pub-title">Coreset Replay: An Investigation in More Sample Efficient Experience Replay</div>
-            <div class="pub-status">Work in progress · Experience Replay, Continual Learning</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            <div class="pub-entry-title">Endpoint Replay: Compressing the Recency Buffer in Deep Reinforcement Learning</div>
+            <div class="pub-entry-authors">Parham Mohammad Panahi, <strong>Armin Ashrafi</strong>, Haoyu Du, Andrew Patterson, Martha White, Adam White</div>
+            <div class="pub-entry-venue"><em>Reinforcement Learning Journal (RLJ)</em>, 2026</div>
 
-  <!-- Experiments -->
-  <div class="page" id="experiments-section">
-    <div class="wrap">
-      <div class="sh">
-        <span class="sh-label">Lab Notebook</span>
-        <h2>Experiments</h2>
-        <p>A running log of experiments — ideas tried, results observed, and questions left open.</p>
-      </div>
+            <div class="pub-entry-links">
+              <span class="pub-link disabled" title="Not posted yet">Paper</span>
+              <a class="pub-link" href="https://scholar.google.ca/scholar?q=Endpoint+Replay+Panahi+2026" target="_blank" rel="noopener">Scholar</a>
+              <span class="pub-link disabled" title="Not posted yet">Code</span>
+              <button class="pub-link" type="button" data-toggle="abstract-endpoint">Abstract</button>
+              <button class="pub-link" type="button" data-toggle="bibtex-endpoint">BibTeX</button>
+            </div>
 
-      <div class="exp-controls">
-        <div class="exp-filter-group" role="group" aria-label="Filter experiments">
-          <button class="exp-btn active" data-tag="all">All</button>
-          <button class="exp-btn" data-tag="policy-spaces">Policy Spaces</button>
-          <button class="exp-btn" data-tag="replay">Replay</button>
-          <button class="exp-btn" data-tag="jax">JAX</button>
-          <button class="exp-btn" data-tag="theory">Theory</button>
-        </div>
-      </div>
+            <p class="pub-entry-summary">A replay buffer compression approach that stores representative transitions derived from the endpoints of n-step trajectory sequences.</p>
 
-      <div id="expList" class="exp-list"></div>
-    </div>
-  </div>
+            <div class="pub-expand" id="abstract-endpoint" hidden>
+              Experience replay remains one of the most practical and useful algorithmic tools in the deep reinforcement learning (DRL) toolbox. Aside from the limited success of prioritized replay and specialized approaches for large asynchronous systems, most DRL algorithms make use of a large, uniformly sampled recency buffer—even the size, one million, remains unchanged. Could we store less data, reduce redundancy, or more effectively chain experience together to speed up value propagation and still retain the performance of large buffers? In this paper, we investigate a simple compression approach that stores representative transitions derived from the end-points of a chain of connected n-step trajectory sequences. By curating these end-points in a much smaller recency buffer, our method maintains an effective memory horizon comparable to a standard large buffer while requiring an order of magnitude less storage. Through empirical evaluation, we demonstrate that this approach prevents the systematic bias inherent in naive compression strategies and matches the performance of traditional large buffers in the Pinball environment and the Atari 2600 benchmark.
+            </div>
 
-  <!-- Projects -->
-  <div class="page">
-    <div class="wrap">
-      <div class="sh">
-        <span class="sh-label">Code & Papers</span>
-        <h2>Selected Projects</h2>
-      </div>
-      <div class="g3">
-        <div class="card">
-          <div class="card-title">Time Discretization in RL</div>
-          <p class="card-desc">How RL algorithms interact with time discretization in classical control environments.</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px;">
-            <span class="tag">RL</span><span class="tag">Classical Control</span>
-          </div>
-          <div style="display:flex;gap:8px;">
-            <a class="btn btn-sm" href="assets/RL.pdf">Paper</a>
-            <a class="btn btn-sm" href="https://github.com/polionus/rlprj" target="_blank" rel="noopener">Code</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title">Learning Policy Spaces</div>
-          <p class="card-desc">Investigating latent policy spaces with Variational Auto-Encoders in JAX/Equinox.</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px;">
-            <span class="tag">JAX</span><span class="tag">VAE</span>
-          </div>
-          <a class="btn btn-sm" href="assets/Neurosymbolic_Programming_Project.pdf">Paper</a>
-        </div>
-        <div class="card">
-          <div class="card-title">Coresets Replay</div>
-          <p class="card-desc">Submodular coreset construction for more stable and efficient experience replay.</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px;">
-            <span class="tag">RL</span><span class="tag">Continual</span>
-          </div>
-          <a class="btn btn-sm" href="assets/605.pdf">Paper</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Talks -->
-  <div class="page">
-    <div class="wrap">
-      <div class="sh">
-        <span class="sh-label">Talks</span>
-        <h2>Presentations</h2>
-      </div>
-      <div>
-        <div class="talk">
-          <div class="talk-date">Sep 2025</div>
-          <div class="talk-body">
-            <strong>Policy Churn as Evidence for Natural Selection in RL</strong><br>
-            Adam White's Research Group, University of Alberta
-          </div>
-        </div>
-        <div class="talk">
-          <div class="talk-date">Aug 2025</div>
-          <div class="talk-body">
-            <strong>Neurosymbolic Representations to the Rescue?</strong><br>
-            MMA Reading Group
+            <pre class="pub-expand" id="bibtex-endpoint" hidden>@article{panahi2026endpoint,
+    title = {Endpoint Replay: Compressing the Recency Buffer in Deep Reinforcement Learning},
+    author = {Parham Mohammad Panahi and Armin Ashrafi and Haoyu Du and Andrew Patterson and Martha White and Adam White},
+    journal = {Reinforcement Learning Journal (RLJ)},
+    year = {2026}
+}</pre>
           </div>
         </div>
       </div>
@@ -332,89 +149,10 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ─── Experiments ─────────────────────────────────────────────
-  // Add entries here. status: "active" | "done" | "planned"
-  const experiments = [
-    {
-      title: "Latent Policy VAE — Grid-World Baselines",
-      date: "Oct 2025",
-      status: "active",
-      tags: ["policy-spaces", "jax"],
-      desc: "Training a VAE over policy rollouts in MiniGrid. Measuring reconstruction fidelity vs. downstream task transfer across maze layouts.",
-      links: []
-    },
-    {
-      title: "Scan-Based Rollout Vectorization",
-      date: "Sep 2025",
-      status: "done",
-      tags: ["jax"],
-      desc: "Compared lax.scan vs. vmap-over-steps for collecting trajectories. Scan is ~2.4× faster on GPU for episode lengths > 200 due to reduced memory overhead.",
-      links: []
-    },
-    {
-      title: "Coreset Selection Strategies for Replay",
-      date: "Sep 2025",
-      status: "active",
-      tags: ["replay"],
-      desc: "Benchmarking submodular greedy vs. random sampling vs. reservoir for experience replay buffer construction. Primary metric: sample efficiency on DM Control.",
-      links: [{ label: "Paper draft", href: "assets/605.pdf" }]
-    },
-    {
-      title: "Policy Churn Under Distribution Shift",
-      date: "Aug 2025",
-      status: "done",
-      tags: ["policy-spaces", "theory"],
-      desc: "Tracked parameter-space drift in a DQN agent exposed to sudden reward re-labeling. Churn correlates strongly with value function instability.",
-      links: []
-    },
-    {
-      title: "Information-Theoretic Replay Weighting",
-      date: "Nov 2025",
-      status: "planned",
-      tags: ["replay", "theory"],
-      desc: "Exploring whether surprise-weighted sampling (via KL divergence from current policy) outperforms uniform replay on non-stationary tasks.",
-      links: []
-    }
-  ];
-
-  const statusLabel = { active: "Active", done: "Done", planned: "Planned" };
-
-  function expHTML(e) {
-    const tags = e.tags.map(t => `<span class="tag">${t}</span>`).join('');
-    const links = e.links.map(l => `<a class="btn btn-sm" href="${l.href}">${l.label}</a>`).join('');
-    return `
-      <div class="exp-item" data-tags="${e.tags.join(',')}">
-        <div class="exp-left">
-          <span class="exp-date">${e.date}</span>
-          <span class="exp-status ${e.status}">${statusLabel[e.status]}</span>
-        </div>
-        <div>
-          <div class="exp-title">${e.title}</div>
-          <div class="exp-tags">${tags}</div>
-          <div class="exp-desc">${e.desc}</div>
-          ${links ? `<div class="exp-links">${links}</div>` : ''}
-        </div>
-      </div>`;
-  }
-
-  const expListEl = document.getElementById('expList');
-  let activeTag = 'all';
-
-  function renderExps() {
-    const filtered = activeTag === 'all'
-      ? experiments
-      : experiments.filter(e => e.tags.includes(activeTag));
-    expListEl.innerHTML = filtered.map(expHTML).join('');
-  }
-
-  renderExps();
-
-  document.querySelectorAll('.exp-btn').forEach(btn => {
+  document.querySelectorAll('.pub-link[data-toggle]').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.exp-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeTag = btn.dataset.tag;
-      renderExps();
+      const el = document.getElementById(btn.dataset.toggle);
+      el.hidden = !el.hidden;
     });
   });
 </script>
