@@ -25,9 +25,8 @@ cd thearminashrafi.github.io
 ## Site Structure
 
 ```
-├── index.html          # Home / profile
-├── research.html       # Research, experiments, publications, projects
-├── one-on-one.html     # One-on-one sessions + contact
+├── index.html          # Home — profile, bio, and publications
+├── contact.html        # Contact
 ├── styles.css          # Shared styles (edit this to change colors/fonts)
 │
 ├── blogs/
@@ -39,30 +38,39 @@ cd thearminashrafi.github.io
 
 ---
 
-## Blog
+## Reflections (Blog)
 
-### Creating a post
+### Creating a post (recommended: scaffold script)
 
-1. Copy `blogs/template.html` → `blogs/my-post-name.html`
-2. Edit the `<title>` and `<meta name="description">` at the top
-3. Update the post title, date, and tags in the `<header>` section
-4. Write your content inside `<article id="prose-content" class="prose">`
+```bash
+python3 scripts/new_post.py "My Post Title"
+```
+
+This prompts for an excerpt and read time, then:
+- creates `blogs/my-post-title.html` from `blogs/template.html` with the title, date, and read time already filled in
+- registers the post in the `posts[]` array in `blogs/index.html` with all fields set correctly (no manual editing, no risk of a typo'd path or a missing field)
+
+Then just open the new file and write the content inside `<article id="prose-content" class="prose">`.
 
 **Writing in Markdown instead of HTML:**
 
-Uncomment the `<script id="md-content" type="text/markdown">` block in the template and write Markdown (including math with `$...$` and `$$...$$`) inside it — the page renders it automatically.
+Uncomment the `<script id="md-content" type="text/markdown">` block in the file and write Markdown (including math with `$...$` and `$$...$$`) inside it — the page renders it automatically.
 
-### Registering the post
+### Creating a post manually
 
-Add an entry to the `posts` array in `blogs/index.html`:
+1. Copy `blogs/template.html` → `blogs/my-post-name.html`
+2. Edit the `<title>` and `<meta name="description">` at the top
+3. Update the post title, date, and read time in the `<header>` section
+4. Write your content inside `<article id="prose-content" class="prose">`
+5. Add an entry to the `posts` array in `blogs/index.html`:
 
 ```js
 {
   title:   "My Post Title",
   date:    "2025-11-01",        // ISO format — used for sorting
   display: "Nov 1, 2025",       // shown in the listing UI
-  tags:    ["rl", "math"],
   excerpt: "One sentence shown in the listing.",
+  read:    5,                   // minutes, shown in the listing
   href:    "my-post-name.html"
 }
 ```
@@ -79,26 +87,16 @@ git push origin main
 
 ---
 
-## Research — Adding an experiment
+## Research — Adding a publication
 
-In `research.html`, find the `experiments` array in the `<script>` block and add:
-
-```js
-{
-  title:  "Experiment title",
-  date:   "Nov 2025",
-  status: "active",        // "active" | "done" | "planned"
-  tags:   ["rl", "jax"],
-  desc:   "What you tried and what you found.",
-  links:  [{ label: "Draft", href: "assets/draft.pdf" }]  // optional
-}
-```
+In `index.html`, find the `.pub-list` block and copy an existing `.pub-entry` div,
+updating the title, authors, venue, links, thumbnail, abstract, and BibTeX.
 
 Then push:
 
 ```bash
-git add research.html
-git commit -m "research: add experiment on ..."
+git add index.html
+git commit -m "research: add publication on ..."
 git push origin main
 ```
 
@@ -122,8 +120,8 @@ git push origin main
 | Task | What to do |
 |---|---|
 | Add a blog post | Copy `blogs/template.html`, write it, add to `posts[]` in `blogs/index.html`, `git push` |
-| Add an experiment | Edit `experiments[]` in `research.html`, `git push` |
-| Update bio / photo | Edit `index.html` → `.hero` section; replace `assets/armin.jpg` |
+| Add a publication | Copy a `.pub-entry` block in `index.html` → `.pub-list`, `git push` |
+| Update bio / photo | Edit `index.html` → `.research-intro` section; replace `assets/armin.jpg` |
 | Change accent color | Edit `--accent` in `styles.css` |
-| Change contact email | Edit `one-on-one.html` → `emailBtn` click handler |
+| Change contact email | Edit `contact.html` → `emailBtn` click handler |
 | Update CV | Replace `assets/Resume_PhD.pdf` |

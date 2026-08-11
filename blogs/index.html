@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog — Armin Ashrafi</title>
-  <meta name="description" content="Writing by Armin Ashrafi on reinforcement learning, mathematics, JAX, and ideas worth exploring." />
+  <title>Reflections — Armin Ashrafi</title>
+  <meta name="description" content="Reflections by Armin Ashrafi on reinforcement learning, mathematics, JAX, and ideas worth exploring." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -14,16 +14,6 @@
       display: flex; gap: 12px; flex-wrap: wrap;
       align-items: center; margin-bottom: 40px;
     }
-    .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
-    .filter-btn {
-      padding: 6px 14px; border-radius: 6px;
-      font-size: 13px; font-weight: 600;
-      border: 1.5px solid var(--border);
-      background: var(--bg); color: var(--text-2);
-      cursor: pointer; transition: all var(--t);
-    }
-    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
     .search-wrap {
       flex: 1 1 240px; display: flex; align-items: center; gap: 10px;
       padding: 8px 14px; border-radius: 7px;
@@ -63,9 +53,8 @@
   <div class="wrap nav-inner">
     <a class="brand" href="../index.html">Armin Ashrafi</a>
     <nav class="nav-links">
-      <a href="../research.html">Research</a>
-      <a href="index.html" class="active">Blog</a>
-      <a href="../one-on-one.html">One-on-One</a>
+      <a href="index.html" class="active">Reflections</a>
+      <a href="../contact.html">Contact</a>
     </nav>
   </div>
 </header>
@@ -76,18 +65,11 @@
 
       <div class="sh">
         <span class="sh-label">Writing</span>
-        <h1>Blog</h1>
+        <h1>Reflections</h1>
         <p>Thoughts on reinforcement learning, mathematics, JAX, and ideas I find worth exploring.</p>
       </div>
 
       <div class="controls">
-        <div class="filter-group" role="group" aria-label="Filter by tag">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="research">Research</button>
-          <button class="filter-btn" data-filter="notes">Notes</button>
-          <button class="filter-btn" data-filter="opinion">Opinion</button>
-          <button class="filter-btn" data-filter="math">Math</button>
-        </div>
         <label class="search-wrap">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--muted);flex-shrink:0"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           <input id="searchInput" type="search" placeholder="Search…" autocomplete="off" />
@@ -105,8 +87,7 @@
   <div class="wrap">
     <nav class="footer-nav">
       <a href="../index.html">Home</a>
-      <a href="../research.html">Research</a>
-      <a href="../one-on-one.html">One-on-One</a>
+      <a href="../contact.html">Contact</a>
     </nav>
     <p class="footer-copy">© <span id="year"></span> Armin Ashrafi</p>
   </div>
@@ -117,26 +98,33 @@
 
   // ─── Posts data ─────────────────────────────────────────────────
   // Add a new entry here for each post. Set href to the post file path.
-  const posts = [];
+  const posts = [
+    {
+      title:   "A Derivation of Mutual Information",
+      date:    "2026-08-11",
+      display: "Aug 11, 2026",
+      excerpt: "Deriving mutual information from first principles, using KL divergence between a joint distribution and its independent factorization.",
+      read:    4,
+      href:    "a-derivation-of-mutual-information.html"
+    },
+  ];
 
   const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
 
   function postHTML(p) {
-    const tags = p.tags.map(t => `<span class="tag${t==='research'?' tag-accent':''}">${t}</span>`).join('');
     return `
-      <div class="post-item" data-tags="${p.tags.join(',')}" data-search="${(p.title+' '+(p.excerpt||'')).toLowerCase()}">
+      <div class="post-item" data-search="${(p.title+' '+(p.excerpt||'')).toLowerCase()}">
         <div class="post-item-date">${fmt(p.date)}</div>
         <div>
           <div class="post-item-title"><a href="${p.href}">${p.title}</a></div>
           <p class="post-item-excerpt">${p.excerpt}</p>
-          <div class="post-item-meta">${tags}<span style="font-size:12px;color:var(--muted);">${p.read} min read</span></div>
+          <div class="post-item-meta"><span style="font-size:12px;color:var(--muted);">${p.read} min read</span></div>
         </div>
       </div>`;
   }
 
   const list = document.getElementById('postList');
   const empty = document.getElementById('emptyState');
-  let currentFilter = 'all';
 
   function render(items) {
     const sorted = items.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -147,22 +135,10 @@
 
   function applyFilters() {
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
-    render(posts.filter(p => {
-      const tagOk = currentFilter === 'all' || p.tags.includes(currentFilter);
-      const textOk = !q || (p.title + ' ' + (p.excerpt||'')).toLowerCase().includes(q);
-      return tagOk && textOk;
-    }));
+    render(posts.filter(p => !q || (p.title + ' ' + (p.excerpt||'')).toLowerCase().includes(q)));
   }
 
   render(posts.slice());
-  document.querySelectorAll('.filter-btn').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      currentFilter = b.dataset.filter;
-      applyFilters();
-    });
-  });
   document.getElementById('searchInput').addEventListener('input', applyFilters);
 </script>
 </body>

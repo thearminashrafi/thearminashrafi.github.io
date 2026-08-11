@@ -4,44 +4,57 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Armin Ashrafi</title>
-  <meta name="description" content="Armin Ashrafi — Master's student in Reinforcement Learning at the University of Alberta." />
+  <meta name="description" content="Armin Ashrafi — Incoming PhD student at the University of Waterloo, working on continual learning and reinforcement learning." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .hero { padding: 64px 0 8px; }
-    .avatar {
-      width: 108px; height: 108px;
+    /* Intro */
+    .research-intro {
+      display: flex; gap: 40px; align-items: flex-start;
+      justify-content: space-between;
+    }
+    .research-avatar {
+      width: 132px; height: 132px; flex-shrink: 0;
       border-radius: 50%; object-fit: cover;
-      float: left; margin: 4px 24px 16px 0;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border); order: 2;
     }
-    .hero-name {
-      font-size: clamp(26px, 5vw, 34px);
-      margin-bottom: 6px; color: var(--text);
+    @media (max-width: 600px) {
+      .research-intro { flex-direction: column-reverse; gap: 20px; }
     }
-    .hero-role {
-      font-size: 15px; color: var(--text-2);
-      margin-bottom: 16px; line-height: 1.6;
-      font-family: var(--sans); font-weight: 400;
-    }
-    .hero-bio {
-      font-size: 16px; color: var(--text-2);
-    }
-    .hero-links {
-      clear: both;
-      display: flex; gap: 4px 18px; flex-wrap: wrap;
-      padding-top: 20px; font-family: var(--sans);
-    }
-    .hero-links a {
-      font-size: 14px; font-weight: 600; color: var(--accent);
+
+    /* Publications */
+    .pub-list { display: flex; flex-direction: column; gap: 36px; }
+    .pub-entry { display: grid; grid-template-columns: 200px 1fr; gap: 24px; }
+    .pub-thumb { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); }
+    .pub-entry-title { font-family: var(--sans); font-weight: 700; font-size: 16px; margin-bottom: 8px; color: var(--text); line-height: 1.4; }
+    .pub-entry-authors { font-size: 14px; color: var(--text-2); margin-bottom: 4px; line-height: 1.5; }
+    .pub-entry-authors strong { color: var(--text); }
+    .pub-entry-venue { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+    .pub-entry-links { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; font-family: var(--sans); }
+    .pub-link {
+      font-size: 13px; font-weight: 600; color: var(--accent);
+      background: none; border: none; padding: 0; cursor: pointer;
       text-decoration: none; border-bottom: 1px solid var(--border);
-      padding-bottom: 2px;
+      font-family: var(--sans);
     }
-    .hero-links a:hover { border-color: var(--accent); }
-    @media (max-width: 480px) {
-      .avatar { float: none; margin: 0 0 16px; }
+    .pub-link:hover { border-color: var(--accent); }
+    .pub-link.disabled { color: var(--muted); cursor: default; pointer-events: none; border-color: transparent; }
+    .pub-entry-summary { font-size: 14px; color: var(--text-2); font-style: italic; margin: 0; }
+    .pub-expand {
+      margin-top: 14px; padding: 14px 16px;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 13.5px;
+      color: var(--text-2); line-height: 1.7;
+    }
+    .pub-expand[hidden] { display: none; }
+    pre.pub-expand {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      white-space: pre-wrap; overflow-x: auto;
+    }
+    @media (max-width: 560px) {
+      .pub-entry { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -51,80 +64,96 @@
   <div class="wrap nav-inner">
     <a class="brand" href="index.html">Armin Ashrafi</a>
     <nav class="nav-links">
-      <a href="research.html">Research</a>
-      <a href="blogs/index.html">Blog</a>
-      <a href="one-on-one.html">One-on-One</a>
+      <a href="blogs/index.html">Reflections</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <div class="wrap">
 
-    <!-- Profile -->
-    <section class="hero">
-      <img class="avatar" src="assets/armin.jpg" alt="Armin Ashrafi" />
-      <h1 class="hero-name">Armin Ashrafi</h1>
-      <p class="hero-role">Master's Student · University of Alberta · RLAI / AMII</p>
-      <p class="hero-bio">
-        I study how reinforcement learning agents can discover and reuse behavioral
-        knowledge through latent representations. I also teach mathematics, machine
-        learning, and languages.
-      </p>
-      <div class="hero-links">
-        <a href="research.html">My Research</a>
-        <a href="https://github.com/polionus" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/armin-ashrafi-041006183/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="#" id="emailBtn">Email</a>
-        <a href="assets/Resume_PhD-2.pdf" download>CV</a>
-      </div>
-    </section>
-
-    <!-- Sections -->
-    <div class="page">
-      <div class="link-list">
-        <a href="research.html">
-          <div>
-            <div class="link-list-title">Research</div>
-            <p class="link-list-desc">Reinforcement learning, latent policy representations, experience replay, and academic publications.</p>
-          </div>
-        </a>
-        <a href="blogs/index.html">
-          <div>
-            <div class="link-list-title">Blog</div>
-            <p class="link-list-desc">Writing on RL, mathematics, JAX, and ideas I find interesting.</p>
-          </div>
-        </a>
-        <a href="one-on-one.html">
-          <div>
-            <div class="link-list-title">One-on-One</div>
-            <p class="link-list-desc">Sessions in mathematics, ML, programming, and languages. Get in touch.</p>
-          </div>
-        </a>
+  <!-- Intro -->
+  <div class="page">
+    <div class="wrap">
+      <div class="research-intro">
+        <div>
+          <span class="sh-label">Academic Work</span>
+          <h1 style="font-size:clamp(26px, 4.5vw, 34px); margin-bottom:12px;">Armin Ashrafi</h1>
+          <p style="font-size:16px; color:var(--text-2); max-width:56ch; line-height:1.7;">
+            I am an incoming PhD student at the University of Waterloo, working with
+            Professor Pascal Poupart. Previously, I did my master's degree at the
+            University of Alberta, under the supervision of Prof. Adam White and
+            Prof. Levi Lelis. Prior to that, I finished my bachelor's degree at IAU,
+            in Tehran. My work is focused on continual learning and reinforcement learning.
+          </p>
+        </div>
+        <img class="research-avatar" src="assets/armin.jpg" alt="Armin Ashrafi" />
       </div>
     </div>
-
   </div>
+
+  <!-- Publications -->
+  <div class="page">
+    <div class="wrap">
+      <div class="sh">
+        <span class="sh-label">Output</span>
+        <h2>Publications</h2>
+      </div>
+
+      <div class="pub-list">
+        <div class="pub-entry">
+          <img class="pub-thumb" src="assets/endpoint-replay.png" alt="Figure from Endpoint Replay paper" />
+          <div>
+            <div class="pub-entry-title">Endpoint Replay: Compressing the Recency Buffer in Deep Reinforcement Learning</div>
+            <div class="pub-entry-authors">Parham Mohammad Panahi, <strong>Armin Ashrafi</strong>, Haoyu Du, Andrew Patterson, Martha White, Adam White</div>
+            <div class="pub-entry-venue"><em>Reinforcement Learning Journal (RLJ)</em>, 2026</div>
+
+            <div class="pub-entry-links">
+              <span class="pub-link disabled" title="Not posted yet">Paper</span>
+              <a class="pub-link" href="https://scholar.google.ca/scholar?q=Endpoint+Replay+Panahi+2026" target="_blank" rel="noopener">Scholar</a>
+              <span class="pub-link disabled" title="Not posted yet">Code</span>
+              <button class="pub-link" type="button" data-toggle="abstract-endpoint">Abstract</button>
+              <button class="pub-link" type="button" data-toggle="bibtex-endpoint">BibTeX</button>
+            </div>
+
+            <p class="pub-entry-summary">A replay buffer compression approach that stores representative transitions derived from the endpoints of n-step trajectory sequences.</p>
+
+            <div class="pub-expand" id="abstract-endpoint" hidden>
+              Experience replay remains one of the most practical and useful algorithmic tools in the deep reinforcement learning (DRL) toolbox. Aside from the limited success of prioritized replay and specialized approaches for large asynchronous systems, most DRL algorithms make use of a large, uniformly sampled recency buffer—even the size, one million, remains unchanged. Could we store less data, reduce redundancy, or more effectively chain experience together to speed up value propagation and still retain the performance of large buffers? In this paper, we investigate a simple compression approach that stores representative transitions derived from the end-points of a chain of connected n-step trajectory sequences. By curating these end-points in a much smaller recency buffer, our method maintains an effective memory horizon comparable to a standard large buffer while requiring an order of magnitude less storage. Through empirical evaluation, we demonstrate that this approach prevents the systematic bias inherent in naive compression strategies and matches the performance of traditional large buffers in the Pinball environment and the Atari 2600 benchmark.
+            </div>
+
+            <pre class="pub-expand" id="bibtex-endpoint" hidden>@article{panahi2026endpoint,
+    title = {Endpoint Replay: Compressing the Recency Buffer in Deep Reinforcement Learning},
+    author = {Parham Mohammad Panahi and Armin Ashrafi and Haoyu Du and Andrew Patterson and Martha White and Adam White},
+    journal = {Reinforcement Learning Journal (RLJ)},
+    year = {2026}
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <footer class="footer">
   <div class="wrap">
     <nav class="footer-nav">
-      <a href="research.html">Research</a>
-      <a href="blogs/index.html">Blog</a>
-      <a href="one-on-one.html">One-on-One</a>
+      <a href="blogs/index.html">Reflections</a>
+      <a href="contact.html">Contact</a>
     </nav>
-    <p class="footer-copy">© <span id="year"></span> Armin Ashrafi · University of Alberta</p>
+    <p class="footer-copy">© <span id="year"></span> Armin Ashrafi</p>
   </div>
 </footer>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-  document.getElementById('emailBtn').addEventListener('click', function(e) {
-    e.preventDefault();
-    const a = 'arminashrafi@proton.me';
-    this.href = 'mailto:' + a;
-    this.textContent = a;
+
+  document.querySelectorAll('.pub-link[data-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = document.getElementById(btn.dataset.toggle);
+      el.hidden = !el.hidden;
+    });
   });
 </script>
 </body>
