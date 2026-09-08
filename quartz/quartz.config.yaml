@@ -43,6 +43,9 @@ configuration:
         highlight: rgba(123, 163, 204, 0.12)
         textHighlight: "#e8c25c66"
 plugins:
+  - source: "./local-plugins/fix-display-math"
+    enabled: true
+    order: 5
   - source: "@quartz-community/created-modified-date"
     enabled: true
     options:

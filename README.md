@@ -89,6 +89,22 @@ there gets published.
 - A GitHub Actions workflow (`.github/workflows/deploy.yml`) builds Quartz from `wiki/` and combines it
   with the rest of this site (`index.html`, `contact.html`, etc.) into `/wiki` on every push to `main`.
 - The site nav's "Notes" link (`index.html`, `contact.html`) points at `wiki/`.
+- Display math (`$$...$$`) is auto-normalized at build time by
+  `quartz/local-plugins/fix-display-math` — write it however you like in
+  Obsidian (single line or fenced), it always renders in proper KaTeX
+  display mode on the site.
+
+### Keeping the main site and notes theme in sync
+
+`styles.css` (main site) and `quartz/quartz.config.yaml`'s `theme.colors`/
+`theme.typography` (notes) are two **separate, manually-synced** palettes —
+not one shared source of truth. If you change one site's colors or fonts
+(light or dark), update the other to match by hand, or the two halves of
+the site will visually drift apart. Also note `theme.typography` alone
+isn't enough for the notes site: the `@quartz-community/quartz-fonts`
+plugin needs its own matching `body`/`header`/`code` options (see the
+comment above that plugin's config) or it silently falls back to Quartz's
+stock fonts regardless of `theme.typography`.
 
 ### Publishing notes
 
