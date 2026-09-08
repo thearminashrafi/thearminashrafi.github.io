@@ -1,69 +1,98 @@
-In this entry, we are interested in deriving mutual information, from a set of principles, and then *derive* the definition from them, to clarify the structure of the concept. 
+In most definitions of Mutual Information, the definition is given directly. I believe *deriving* the definitions from another set of examples can be really illuminating.
 
+## A Measure of Relationship between Random Variables
 
-Let's setup the necessary background:
+We are interested in finding out a quantity that tells about the information gained about a random variable $X$, when the value of another variable $Y$ is known [^1]. We will list a set of design criteria, that we would like our measure relationship to show.
 
-1. A Probability Distribution
-2. A random variable 
-3. The Kullback-Leibler divergence
+### Design Criteria
 
+1. **Independence**: If the random variables $X$ and $Y$ are independent, then our measure of relationship needs to be 0. 
+2. **Non-Negativity**: We are measure how dependent two variables are, which at a minimum, is 0, when they are independent.
 
-A random variable, is a mapping between the sample space $\Omega$, and a set of values $X$, normally the real numbers $\mathbb{R}$.
+Now, some important points to keep in mind in this context: 
+### Observations
 
-When one talks about the expectation of a random variable, it is implicitly assumed that one is talking about the expected value defined on the specific distribution. Same is the case for when we are talking about the entropy of a variable, what we mean is the entropy of the underlying distribution over the variable. 
+1. The Joint Distribution $P(X,Y)$ encapsulates all the information between all possibles pairs of values between $X$ and $Y$.
+2. In general, $X$ and $Y$ are not independent from each other over $P(X,Y)$. There are a myriad of probability measures $R(X,Y)$ that can be defined in such a way that $X$ and $Y$ are independent from each other.
 
-It's important to know that when we are talking about a random variable $V$, it is implied that a probability distribution is defined over the sample space $\Omega$, which is then transffered to the value space $V$. This is not the only possible distribution over the random variable.
+So here is a question: 
 
-## What we would like to achieve
+> If $X$ and $Y$ were dependent, how surprised would we be, if we believed they were independent, as characterized by $R(X,Y)$?
 
-We are interested in finding out a quantity that tells about the information gained about a random variable, when the value of another is known. Here are some useful observations: 
-
-1. Independence: If the random variables $X$ and $Y$ are independent, then we cannot in any way, have any information be gained from $X$, if we know $Y$. 
-2. The KL Divergence can be a way for us to measure the surprise of believing in one distribution, over another. A Kind of distance. 
-3. We would like to measure how "independent" two variables are from each other, using this distance. 
-
-In order to do this, we need to study the following object: $P(X,Y)$, i.e. the joint distribution over the two variables, which encodes all the joint possibilities for the pair $(X,Y)$, and their probabilities. 
-
-In order to gauge how independent $P(X,Y)$ is, we need to find its distance from a distribution in which $X$ and $Y$ would be independent. This is because whether or not $X$ and $Y$ are indpendent or not, rests solely on how their joint distribution is structured, and not the content of the mappings they represent. One can distribute probability mass in $P(X, Y)$ in such a way that $P(X,Y) = P(X)P(Y)$, where $P(X)$ and $P(Y)$ are some well-defined probability distributions. 
-
-Let $R(X,Y)$ be such a distribution, where $R(X,Y) = R(x)R(Y)$. Now, we would like to measure: 
+A measure of such a surprisal would the [[Kullback-Leibler Divergence]], given as: 
 
 $$
-D_{KL}(P(X,Y)||R(X,Y))
+D_{KL}(P(X,Y)||R(X,Y)) = \sum_{(x,y) \in \mathcal{X} \times \mathcal{Y}} P(x,y)\log \frac{P(x,y)}{R(x,y)}
 $$
 
-What does $R(X,Y)$ look like? Let's see if we can learn anything about $R(X,Y)$. 
 
-We know that, one such $R(X,Y)$ is $R(X,Y) = P(X)P(Y)$, as we can prove it is a probability distribution over $X$ and $Y$. Let's expand the definition of KL-divergence, in the discrete case: 
-
-$$
-D_{KL}(P(X,Y)||R(X,Y)) = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x,y)}{R(x,y)}
-$$
-
-Now let's multiply and divide this by $P(x)P(y)$:
+This characterizes the relationship between $P(X,Y)$ and *any probability distribution* $R(X,Y)$, in which: 
 
 $$
-\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x,y)(P(x)P(y))}{R(x,y)(P(x)P(y))}
+R(X,Y) = R_X(X)R_Y(Y)
 $$
+The space of possible $R(X,Y)$ is large, and depends on the choice $R(X,Y)$. In addition, let's notice that: 
 
-with some algebraic manipulation, we get:
+**Lemma 1.** *The probability distribution $R(X,Y) = P(X)P(Y)$*, where $P(X)$ and $P(Y)$ signify the marginal probability distributions derived from $P(X,Y)$.
+
+*Proof.* Left to reader.
+
+**Lemma 2.** *It can be shown that* $D_{\text{KL}}(P(X, Y) \parallel R_X(X) R_Y(Y))$ is equal to: 
+
+$$
+ D_{\text{KL}}(P(X, Y) \parallel P_X(X) P_Y(Y)) + D_{\text{KL}}(P_X(X) \parallel R_X(X)) + D_{\text{KL}}(P_Y(Y) \parallel R_Y(Y))
+$$*Proof.* Let us start from the original form: 
 
 
 $$
-\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x,y)}{P(x)P(y))} + \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x)}{R(x,y)}
+\sum_{(x,y) \in \mathcal{X} \times \mathcal{Y}} P(x,y)\log \frac{P(x,y)}{R(x,y)}
 $$
 
-Which after further simplifications, gives us: 
+Now, let's multiply and divide the quotient in the logarithm by $P_X(x)P_Y(y)$:
+
 
 $$
-D_{KL}(P(X,Y)||R(X,Y)) = D_{KL}(P(X,Y)||P(X)P(Y)) + D_{KL}(P(X)||R(X)) + D_{KL}(P(Y)||R(Y))
+\sum_{(x,y) \in \mathcal{X} \times \mathcal{Y}} P(x,y)\log \frac{P(x,y)[P_X(x)P_Y(y)]}{R(x,y)[P_X(x)P_Y(y)]}
+$$
+Let's rewrite this as 2 sums: 
+
+$$
+\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x,y)[P_X(x)P_Y(y)]}{R(x,y)[P_X(x)P_Y(y)]}
 $$
 
-In English, this means any distance between a distribution that is independent over $X$ and $Y$, will be composed of its distance from $P(X)P(Y)$, and the distance between marginals, and the marginals of the original distribution.
+Using logarithmic identity $\log(a \cdot b \cdot c) = \log a + \log b + \log c$, and the fact that $R(X,Y) = R_X(X)R_Y(Y)$:
+
+$$\log \frac{P(x, y)}{R_X(x) R_Y(y)} = \log \frac{P(x, y)}{P_X(x) P_Y(y)} + \log \frac{P_X(x)}{R_X(x)} + \log \frac{P_Y(y)}{R_Y(y)}$$
+Substituting this back in, and separating the sums gives us the result. $\blacksquare$ 
 
 
-Of course, we would like our measure of independence, to be equal to zero, if the random variables are independent form each other. Putting this together, gives us this definition for Mutual Information: 
+We now have a general form for the difference between $P(X,Y)$, and any arbitrary joint distribution $R(X,Y)$ where $X$ and $Y$ are independent. 
+
+
+### Checking the new formula against the Design Criteria
+
+In order to see if the new formula matches our design criteria, let's check the one by one. 
+
+
+1. **Independence**: If we assume $X$ and $Y$ are independent over $P(X,Y)$, using the form above, the distance measure would simplify to: 
+
+$$
+D_{KL}(P_X(X)\parallel R_X(X)) + D_{KL}(P_Y(Y)\parallel R_Y(Y))
+$$
+
+### Observations
+
+1. The measure is only 0, if $R_X(X) = P_X(X)$ and $R_Y(Y) = P_Y(Y)$.
+2. This means that $R(X,Y) = P_X(X)P_Y(Y)$. 
+3. We now have a measure of the distance between $P(X,Y)$ and a joint distribution $R(X,Y)$ over $X$ and $Y$, where If we want this measure to be 0 when $X$ and $Y$ are independent, $R$ is forced to be the product of the marginals of $P(X,Y)$. 
+4. Another interesting observation, is that choosing $R(X,Y) = P_X(X)P_Y(Y)$, is the unique joint distribution over $R(X,Y)$ where: 
+	1. $X$ and $Y$ are independent.
+	2. It achieves minimum relative entropy or [[Kullback-Leibler Divergence]] from $P(X,Y)$.
+
+Putting all this together, gives us this definition for Mutual Information: 
 
 $$
 I(X;Y) = D_{KL}(P(X,Y)||P(X)P(Y))
 $$
+
+[^1]: This information regarding (in)dependence is not a standalone property of $X$ and $Y$, but is dictated by a joint probability measure P(X,Y) defined over them.
