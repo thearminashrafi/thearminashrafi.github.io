@@ -21,3 +21,27 @@ blockquote {
   // text itself.
   padding-left: 1.45rem;
 }
+
+// Obsidian's own compatibility CSS (@layer obsidian-theme) defines
+// --accent-h/-s/-l with its own stock purple (258/88%/66%), and
+// --secondary/--tag-color/--text-accent/--interactive-accent/etc. all
+// derive from those via hsl(var(--accent-h), ...). Our configured
+// colors (theme.colors in quartz.config.yaml) land in @layer
+// quartz-base, a *lower*-priority layer than obsidian-theme -- so
+// Obsidian's purple silently wins for anything using those derived
+// variables (internal links, tags, ...), even though our plain
+// --secondary hex value is set correctly elsewhere.
+//
+// Tried putting this in @layer obsidian-theme-overrides (the highest-
+// priority layer name the theme's own CSS reserves) -- didn't work,
+// because layer *position* is fixed by whichever stylesheet mentions
+// a layer name first in document order, and this file happens to load
+// before the one that "officially" declares the intended layer order.
+// Unlayered + !important beats any layered rule regardless of load
+// order, so use that instead -- more brute-force, but not dependent on
+// which file the build happens to emit first.
+:root {
+  --accent-h: 210 !important;
+  --accent-s: 51% !important;
+  --accent-l: 37% !important;
+}
