@@ -2,19 +2,15 @@
 
 // put your custom CSS here!
 
-// Structural KaTeX spans (operator names like \log, punctuation,
-// relations) end up inheriting the page's body font instead of KaTeX's
-// own math font, even though .katex itself correctly resolves to
-// KaTeX_Main -- so \log etc. don't match real LaTeX typesetting.
-// These classes are never combined with a mathvariant class (.mathit,
-// .mathnormal, etc.), so it's safe to pin their font directly without
-// touching italic variable rendering.
-.katex .mop,
-.katex .mbin,
-.katex .mrel,
-.katex .mpunct,
-.katex .minner,
-.katex .mopen,
-.katex .mclose {
+// Base/structural KaTeX spans without their own mathvariant class --
+// operator names (\log), plain symbols (the "||" in KL-divergence
+// notation renders as a single .mord glyph), punctuation, relations --
+// end up inheriting the page's body font instead of KaTeX's own math
+// font, even though .katex itself correctly resolves to KaTeX_Main.
+// Using :where() keeps this at zero added specificity, so it can never
+// outrank KaTeX's own more-specific mathvariant rules (.mathnormal,
+// .mathit, .mathbf, ...), which must keep winning for italic/bold
+// variable glyphs -- safe to include .mord here for that reason.
+.katex :where(.mop, .mord, .mbin, .mrel, .mpunct, .minner, .mopen, .mclose) {
   font-family: KaTeX_Main, "Times New Roman", serif;
 }
