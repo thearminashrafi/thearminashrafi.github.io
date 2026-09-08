@@ -14,3 +14,13 @@
 .katex :where(.mop, .mord, .mbin, .mrel, .mpunct, .minner, .mopen, .mclose) {
   font-family: KaTeX_Main, "Times New Roman", serif;
 }
+
+// Quartz's default blockquote margin is 1rem on both top and bottom,
+// and paragraphs have no margin-top of their own -- so the gap between
+// a blockquote and the text right after it ends up noticeably tighter
+// than the gap above it (which also gets the preceding paragraph's own
+// bottom margin added on top). Give blockquotes a bit more breathing
+// room below.
+blockquote {
+  margin-bottom: 1.75rem;
+}
