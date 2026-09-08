@@ -1,3 +1,20 @@
 @use "./variables.scss" as *;
 
 // put your custom CSS here!
+
+// Structural KaTeX spans (operator names like \log, punctuation,
+// relations) end up inheriting the page's body font instead of KaTeX's
+// own math font, even though .katex itself correctly resolves to
+// KaTeX_Main -- so \log etc. don't match real LaTeX typesetting.
+// These classes are never combined with a mathvariant class (.mathit,
+// .mathnormal, etc.), so it's safe to pin their font directly without
+// touching italic variable rendering.
+.katex .mop,
+.katex .mbin,
+.katex .mrel,
+.katex .mpunct,
+.katex .minner,
+.katex .mopen,
+.katex .mclose {
+  font-family: KaTeX_Main, "Times New Roman", serif;
+}
