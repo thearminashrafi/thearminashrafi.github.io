@@ -126,6 +126,13 @@ plugins:
       body: Lora
       header: Lora
       code: IBM Plex Mono
+      # Same story for "interface" (UI chrome, but some prose elements
+      # like plain <p> paragraphs pick it up too): unset, it falls back
+      # to a hardcoded Obsidian sans-serif stack that wins over the
+      # theme's var(--bodyFont) fallback due to CSS layer ordering --
+      # so paragraphs silently rendered in a different font than
+      # headings/list items/bold text. Set it explicitly.
+      interface: Lora
       fontOrigin: googleFonts
   - source: "@quartz-themes/core"
     enabled: true
