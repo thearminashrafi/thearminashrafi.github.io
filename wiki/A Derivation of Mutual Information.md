@@ -28,30 +28,42 @@ In order to gauge how independent $P(X,Y)$ is, we need to find its distance from
 
 Let $R(X,Y)$ be such a distribution, where $R(X,Y) = R(x)R(Y)$. Now, we would like to measure: 
 
-$$D_{KL}(P(X,Y)||R(X,Y))$$
+$$
+D_{KL}(P(X,Y)||R(X,Y))
+$$
 
 What does $R(X,Y)$ look like? Let's see if we can learn anything about $R(X,Y)$. 
 
 We know that, one such $R(X,Y)$ is $R(X,Y) = P(X)P(Y)$, as we can prove it is a probability distribution over $X$ and $Y$. Let's expand the definition of KL-divergence, in the discrete case: 
 
-$$D_{KL}(P(X,Y)||R(X,Y)) = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x,y)}{R(x,y)}$$
+$$
+D_{KL}(P(X,Y)||R(X,Y)) = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x,y)}{R(x,y)}
+$$
 
 Now let's multiply and divide this by $P(x)P(y)$:
 
-$$\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x,y)(P(x)P(y))}{R(x,y)(P(x)P(y))}$$
+$$
+\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x,y)(P(x)P(y))}{R(x,y)(P(x)P(y))}
+$$
 
 with some algebraic manipulation, we get:
 
 
-$$\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x,y)}{P(x)P(y))} + \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x)}{R(x,y)}$$
+$$
+\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x,y)}{P(x)P(y))} + \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y)\log \frac{P(x)}{R(x,y)}
+$$
 
 Which after further simplifications, gives us: 
 
-$$D_{KL}(P(X,Y)||R(X,Y)) = D_{KL}(P(X,Y)||P(X)P(Y)) + D_{KL}(P(X)||R(X) + D_{KL}(P(Y)||R(Y)$$
+$$
+D_{KL}(P(X,Y)||R(X,Y)) = D_{KL}(P(X,Y)||P(X)P(Y)) + D_{KL}(P(X)||R(X)) + D_{KL}(P(Y)||R(Y))
+$$
 
 In English, this means any distance between a distribution that is independent over $X$ and $Y$, will be composed of its distance from $P(X)P(Y)$, and the distance between marginals, and the marginals of the original distribution.
 
 
 Of course, we would like our measure of independence, to be equal to zero, if the random variables are independent form each other. Putting this together, gives us this definition for Mutual Information: 
 
-$$I(X;Y) = D_{KL}(P(X,Y)||P(X)P(Y))$$
+$$
+I(X;Y) = D_{KL}(P(X,Y)||P(X)P(Y))
+$$

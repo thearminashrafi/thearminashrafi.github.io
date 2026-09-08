@@ -1,14 +1,3 @@
 @use "./variables.scss" as *;
 
 // put your custom CSS here!
-
-// Display math ($$...$$) renders as an ordinary inline .katex span rather
-// than a centered .katex-display block (upstream quirk in how the Obsidian
-// and LaTeX transformers both register math parsing). A paragraph whose
-// *only* content is a katex span is always a display-math block in
-// practice, so center those specifically.
-p > .katex:only-child {
-  display: block;
-  text-align: center;
-  margin: 1.5rem 0;
-}
