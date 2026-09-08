@@ -1,2 +1,5 @@
 .DS_Store
-wiki/
+wiki/.obsidian/
+quartz/node_modules/
+quartz/public/
+quartz/.quartz-cache/
