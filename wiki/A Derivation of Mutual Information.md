@@ -1,12 +1,14 @@
 In most definitions of Mutual Information, the definition is given directly. I believe *deriving* the definitions from another set of examples can be really illuminating.
 
-## A Measure of Relationship between Random Variables
+For simplicity, this derivation assumes $X$ and $Y$ are discrete random variables. The analogous result for continuous distributions replaces sums with integrals and probability mass functions with densities, subject to the usual measure-theoretic conditions
 
-We are interested in finding out a quantity that tells about the information gained about a random variable $X$, when the value of another variable $Y$ is known [^1]. We will list a set of design criteria, that we would like our measure relationship to show.
+## A Measure of Dependence between Random Variables
+
+We are interested in finding out a quantity that tells about the information gain present, when two random variables are not independent, under a joint distribution $P(X,Y)$ [^1]. We will list a set of design criteria, that we would like our measure of Dependence to show.
 
 ### Design Criteria
 
-1. **Independence**: If the random variables $X$ and $Y$ are independent, then our measure of relationship needs to be 0. 
+1. **Independence**: If the random variables $X$ and $Y$ are independent, then our measure of dependence needs to be 0. 
 2. **Non-Negativity**: We are measure how dependent two variables are, which at a minimum, is 0, when they are independent.
 
 Now, some important points to keep in mind in this context: 
