@@ -28,8 +28,8 @@ In order to gauge how independent $P(X,Y)$ is, we need to find its distance from
 
 Let $R(X,Y)$ be such a distribution, where $R(X,Y) = R(x)R(Y)$. Now, we would like to measure: 
 
-
 $$D_{KL}(P(X,Y)||R(X,Y))$$
+
 What does $R(X,Y)$ look like? Let's see if we can learn anything about $R(X,Y)$. 
 
 We know that, one such $R(X,Y)$ is $R(X,Y) = P(X)P(Y)$, as we can prove it is a probability distribution over $X$ and $Y$. Let's expand the definition of KL-divergence, in the discrete case: 
