@@ -16,6 +16,26 @@
   --sans: 'Inter', system-ui, -apple-system, sans-serif;
   --serif: 'Lora', Georgia, serif;
   --t: .15s ease;
+  color-scheme: light;
+}
+
+/* Dark mode — mirrors the Quartz notes theme's dark palette
+   (quartz/quartz.config.yaml, colors.darkMode) so /wiki and the main
+   site look like one consistent (light + dark) design. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:       #171310;
+    --bg-2:     #2b2620;
+    --text:     #f5f3ef;
+    --text-2:   #c9c2b8;
+    --muted:    #6b6156;
+    --accent:   #7ba3cc;
+    --accent-hover: #9dc1e0;
+    --a-soft:   rgba(123, 163, 204, 0.12);
+    --link:     #7ba3cc;
+    --border:   #3a352d;
+    color-scheme: dark;
+  }
 }
 
 /* ─── Reset ───────────────────────────────────────────────────── */
