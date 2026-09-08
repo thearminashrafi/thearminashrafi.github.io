@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
-"""Scaffold a new blog post: copies the template, fills in the header,
-and registers it in blogs/index.html's posts[] array.
+"""Start a new blog post as a plain Markdown file.
 
 Usage:
   python3 scripts/new_post.py "My Post Title"
+
+Creates posts/<slug>.md with a front-matter header (title, date, excerpt,
+read time) already filled in. Open that file in any text editor and write
+the post below the header, in plain Markdown.
+
+When the post is ready, run:
+  python3 scripts/build_post.py <slug>
+to generate the actual site page from it.
 """
 import datetime
-import json
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-BLOGS = ROOT / "blogs"
-TEMPLATE = BLOGS / "template.html"
-INDEX = BLOGS / "index.html"
+POSTS = ROOT / "posts"
 
 
 def slugify(title: str) -> str:
@@ -32,7 +36,8 @@ def main():
         sys.exit("A title is required.")
 
     slug = slugify(title)
-    post_path = BLOGS / f"{slug}.html"
+    POSTS.mkdir(parents=True, exist_ok=True)
+    post_path = POSTS / f"{slug}.md"
     if post_path.exists():
         sys.exit(f"{post_path} already exists — pick a different title or delete it first.")
 
@@ -42,45 +47,39 @@ def main():
 
     read = input("Estimated read time in minutes [5]: ").strip() or "5"
 
-    today = datetime.date.today()
-    iso_date = today.isoformat()
-    display_date = today.strftime("%b %-d, %Y") if sys.platform != "win32" else today.strftime("%b %d, %Y")
+    today = datetime.date.today().isoformat()
 
-    # --- Write the post file from the template ---
-    text = TEMPLATE.read_text()
-    text = text.replace("[Post Title] — Armin Ashrafi", f"{title} — Armin Ashrafi")
-    text = text.replace('content="[One-sentence summary]"', f'content="{excerpt}"')
-    text = text.replace(">[Post Title]<", f">{title}<")
-    text = text.replace("[Month DD, YYYY]", display_date)
-    text = text.replace("[X] min read", f"{read} min read")
-    post_path.write_text(text)
-
-    # --- Register the post in blogs/index.html ---
-    index_text = INDEX.read_text()
-    entry = (
-        "    {\n"
-        f'      title:   {json.dumps(title)},\n'
-        f'      date:    {json.dumps(iso_date)},\n'
-        f'      display: {json.dumps(display_date)},\n'
-        f'      excerpt: {json.dumps(excerpt)},\n'
-        f'      read:    {int(read)},\n'
-        f'      href:    {json.dumps(slug + ".html")}\n'
-        "    },\n"
+    front_matter = (
+        "---\n"
+        f"title: {title}\n"
+        f"date: {today}\n"
+        f"excerpt: {excerpt}\n"
+        f"read: {read}\n"
+        "---\n"
     )
-    marker = "const posts = ["
-    idx = index_text.index(marker) + len(marker)
-    # Insert as the first element; empty-array case (posts = []) still works.
-    rest = index_text[idx:].lstrip()
-    if rest.startswith("]"):
-        new_text = index_text[:idx] + "\n" + entry + "  " + rest
-    else:
-        new_text = index_text[:idx] + "\n" + entry + index_text[idx:]
-    INDEX.write_text(new_text)
+    body = (
+        "\n"
+        "Write your post here, in plain Markdown. Standard syntax works:\n"
+        "\n"
+        "- bullet lists\n"
+        "- `inline code`\n"
+        "- **bold**, *italic*\n"
+        "- inline math like $a^2 + b^2 = c^2$ and display math like $$\\int_0^1 x\\,dx = \\tfrac12$$\n"
+        "\n"
+        "## A section heading\n"
+        "\n"
+        "```python\n"
+        "# fenced code blocks are syntax-highlighted\n"
+        "import jax.numpy as jnp\n"
+        "```\n"
+        "\n"
+        "> A blockquote, if you want one.\n"
+    )
+    post_path.write_text(front_matter + body)
 
     print(f"\nCreated {post_path.relative_to(ROOT)}")
-    print(f"Registered in {INDEX.relative_to(ROOT)}")
-    print(f"\nNext: open {post_path.relative_to(ROOT)} and write your content")
-    print("(inside <article id=\"prose-content\">, or uncomment the Markdown <script> block).")
+    print("Open it, replace the placeholder text below the --- header, and write your post.")
+    print(f"\nWhen it's ready:  python3 scripts/build_post.py {slug}")
 
 
 if __name__ == "__main__":
