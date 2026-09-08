@@ -112,6 +112,18 @@ plugins:
     order: 92
   - source: "@quartz-community/quartz-fonts"
     enabled: true
+    options:
+      # This plugin does NOT read configuration.theme.typography above --
+      # it tries to pull fonts from a registry populated by the theme
+      # plugin, and that lookup silently fails, falling back to Quartz's
+      # stock defaults (Source Sans Pro / Schibsted Grotesk). Set body
+      # text explicitly so it (and everything that inherits from it,
+      # including KaTeX operator text like \log) actually uses the
+      # site's font instead of the default.
+      body: Lora
+      header: Lora
+      code: IBM Plex Mono
+      fontOrigin: googleFonts
   - source: "@quartz-themes/core"
     enabled: true
     options:
