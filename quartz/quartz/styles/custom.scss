@@ -45,3 +45,23 @@ blockquote {
   --accent-s: 51% !important;
   --accent-l: 37% !important;
 }
+
+// Same layer-priority bug, different variable: .page's background
+// uses var(--tab-container-background) -> var(--background-secondary)
+// -> var(--color-base-20), and Obsidian's stock grayscale ramp
+// (--color-base-00 through -100, hardcoded in @layer obsidian-theme)
+// wins over quartz-base's mapping of those same names to our palette
+// (--light/--lightgray/--gray/--darkgray/--dark). That's why the
+// sidebars render a flat neutral gray (#f6f6f6) instead of matching
+// the content background -- on the reference Quartz site, sidebars
+// and content share the exact same background (no contrast at all).
+// Map the whole ramp to --light so sidebar backgrounds match content.
+:root {
+  --color-base-00: var(--light) !important;
+  --color-base-05: var(--light) !important;
+  --color-base-10: var(--light) !important;
+  --color-base-20: var(--light) !important;
+  --color-base-25: var(--light) !important;
+  --color-base-30: var(--light) !important;
+  --color-base-35: var(--light) !important;
+}
