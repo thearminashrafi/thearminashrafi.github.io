@@ -65,3 +65,13 @@ blockquote {
   --color-base-30: var(--light) !important;
   --color-base-35: var(--light) !important;
 }
+
+// Same bug, third variable: .internal (wikilinks, resolved or not) get
+// background-color: var(--highlight), and Obsidian's stock default
+// (rgba(255, 208, 0, 0.4), yellow) wins over quartz-base's mapping of
+// --highlight to our blue accent tint -- so every internal link got a
+// yellow pill background regardless of whether it pointed to a real
+// note or not.
+:root {
+  --highlight: rgba(47, 95, 143, 0.1) !important;
+}
