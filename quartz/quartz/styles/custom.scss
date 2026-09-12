@@ -76,25 +76,25 @@ blockquote {
   --highlight: rgba(47, 95, 143, 0.1) !important;
 }
 
-// Top bar linking back to the main site (index.html / contact.html).
-// The notes site (/wiki) has its own Explorer/search chrome but no way
-// back to the rest of thearminashrafi.github.io other than the browser
-// back button -- added in renderPage.tsx as a sibling before
-// #quartz-root, so it spans the full page width above the sidebar/
-// content grid rather than living inside one column.
+// Top bar linking back to the main site's homepage. The notes site
+// (/wiki) has its own Explorer/search chrome but no way back to the
+// rest of thearminashrafi.github.io other than the browser back button
+// -- added in renderPage.tsx as a sibling before #quartz-root, so it
+// spans the full page width above the sidebar/content grid rather than
+// living inside one column.
 //
 // Styling deliberately mirrors the main site's own .nav (styles.css)
 // as closely as possible for visual continuity between the two: same
-// height/sticky behavior, same colors (our --light/--dark/--darkgray/
-// --secondary/--lightgray tokens are the exact same values as the main
-// site's --bg/--text/--text-2/--accent/--border), and a system-ui sans
-// stack standing in for the main site's Inter (not loading a whole
-// extra webfont just for one bar).
+// height/sticky behavior, same colors (our --light/--dark/--secondary/
+// --lightgray tokens are the exact same values as the main site's
+// --bg/--text/--accent/--border), and a system-ui sans stack standing
+// in for the main site's Inter (not loading a whole extra webfont just
+// for one bar).
 //
-// The links use data-router-ignore -- without it, Quartz's SPA router
+// The link uses data-router-ignore -- without it, Quartz's SPA router
 // intercepts the click and tries to AJAX-fetch + swap in the target as
 // if it were another Quartz page, which produces a broken/half-loaded
-// render for these plain, non-Quartz pages.
+// render for this plain, non-Quartz page.
 .site-return-nav {
   position: sticky;
   top: 0;
@@ -107,9 +107,7 @@ blockquote {
 .site-return-nav-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: 100%;
-  gap: 12px;
   padding: 0 2rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
 
@@ -123,29 +121,6 @@ blockquote {
 
     &:hover {
       color: var(--secondary);
-    }
-  }
-}
-
-.site-return-nav-links {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-
-  a {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--darkgray);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-    transition:
-      color 0.15s ease,
-      border-color 0.15s ease;
-
-    &:hover {
-      color: var(--secondary);
-      border-color: var(--secondary);
     }
   }
 }

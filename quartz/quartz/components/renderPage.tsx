@@ -351,16 +351,8 @@ export function renderPage(
         <div class="site-return-nav">
           <div class="site-return-nav-inner">
             <a class="brand" href="/" data-router-ignore>
-              Armin Ashrafi
+              ← Back to Homepage
             </a>
-            <nav class="site-return-nav-links">
-              <a href="/" data-router-ignore>
-                Home
-              </a>
-              <a href="/contact.html" data-router-ignore>
-                Contact
-              </a>
-            </nav>
           </div>
         </div>
         <div id="quartz-root" class="page" data-frame={frame.name}>
