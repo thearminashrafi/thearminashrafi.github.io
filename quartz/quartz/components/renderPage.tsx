@@ -349,8 +349,19 @@ export function renderPage(
       <body data-slug={slug} data-basepath={basePath}>
         {frame.css && <style dangerouslySetInnerHTML={{ __html: frame.css }} />}
         <div class="site-return-nav">
-          <a href="/">Armin Ashrafi</a>
-          <a href="/contact.html">Contact</a>
+          <div class="site-return-nav-inner">
+            <a class="brand" href="/" data-router-ignore>
+              Armin Ashrafi
+            </a>
+            <nav class="site-return-nav-links">
+              <a href="/" data-router-ignore>
+                Home
+              </a>
+              <a href="/contact.html" data-router-ignore>
+                Contact
+              </a>
+            </nav>
+          </div>
         </div>
         <div id="quartz-root" class="page" data-frame={frame.name}>
           <Body {...componentData}>

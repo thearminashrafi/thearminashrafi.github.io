@@ -82,26 +82,70 @@ blockquote {
 // back button -- added in renderPage.tsx as a sibling before
 // #quartz-root, so it spans the full page width above the sidebar/
 // content grid rather than living inside one column.
+//
+// Styling deliberately mirrors the main site's own .nav (styles.css)
+// as closely as possible for visual continuity between the two: same
+// height/sticky behavior, same colors (our --light/--dark/--darkgray/
+// --secondary/--lightgray tokens are the exact same values as the main
+// site's --bg/--text/--text-2/--accent/--border), and a system-ui sans
+// stack standing in for the main site's Inter (not loading a whole
+// extra webfont just for one bar).
+//
+// The links use data-router-ignore -- without it, Quartz's SPA router
+// intercepts the click and tries to AJAX-fetch + swap in the target as
+// if it were another Quartz page, which produces a broken/half-loaded
+// render for these plain, non-Quartz pages.
 .site-return-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 56px;
+  background: var(--light);
+  border-bottom: 1px solid var(--lightgray);
+}
+
+.site-return-nav-inner {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  padding: 0.85rem 2rem;
-  border-bottom: 1px solid var(--lightgray);
-  font-family: var(--bodyFont);
+  justify-content: space-between;
+  height: 100%;
+  gap: 12px;
+  padding: 0 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
 
-  a {
-    color: var(--darkgray);
-    font-weight: 600;
+  .brand {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--dark);
     text-decoration: none;
-    font-size: 0.95rem;
+    white-space: nowrap;
 
     &:hover {
       color: var(--secondary);
     }
+  }
+}
 
-    &:first-child {
-      font-weight: 700;
+.site-return-nav-links {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+
+  a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--darkgray);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+
+    &:hover {
+      color: var(--secondary);
+      border-color: var(--secondary);
     }
   }
 }
