@@ -254,8 +254,9 @@ plugins:
     enabled: true
     options:
       links:
-        GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
+        Home: https://thearminashrafi.github.io/
+        Contact: https://thearminashrafi.github.io/contact.html
+        GitHub: https://github.com/thearminashrafi/thearminashrafi.github.io
     layout:
       position: footer
       priority: 50

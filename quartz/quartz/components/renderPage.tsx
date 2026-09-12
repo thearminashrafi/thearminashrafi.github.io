@@ -348,6 +348,10 @@ export function renderPage(
       <Head {...componentData} />
       <body data-slug={slug} data-basepath={basePath}>
         {frame.css && <style dangerouslySetInnerHTML={{ __html: frame.css }} />}
+        <div class="site-return-nav">
+          <a href="/">Armin Ashrafi</a>
+          <a href="/contact.html">Contact</a>
+        </div>
         <div id="quartz-root" class="page" data-frame={frame.name}>
           <Body {...componentData}>
             {[

@@ -75,3 +75,33 @@ blockquote {
 :root {
   --highlight: rgba(47, 95, 143, 0.1) !important;
 }
+
+// Top bar linking back to the main site (index.html / contact.html).
+// The notes site (/wiki) has its own Explorer/search chrome but no way
+// back to the rest of thearminashrafi.github.io other than the browser
+// back button -- added in renderPage.tsx as a sibling before
+// #quartz-root, so it spans the full page width above the sidebar/
+// content grid rather than living inside one column.
+.site-return-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.85rem 2rem;
+  border-bottom: 1px solid var(--lightgray);
+  font-family: var(--bodyFont);
+
+  a {
+    color: var(--darkgray);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+
+    &:hover {
+      color: var(--secondary);
+    }
+
+    &:first-child {
+      font-weight: 700;
+    }
+  }
+}
