@@ -46,16 +46,49 @@ blockquote {
   --accent-l: 37% !important;
 }
 
-// Same layer-priority bug, different variable: .page's background
-// uses var(--tab-container-background) -> var(--background-secondary)
-// -> var(--color-base-20), and Obsidian's stock grayscale ramp
-// (--color-base-00 through -100, hardcoded in @layer obsidian-theme)
-// wins over quartz-base's mapping of those same names to our palette
-// (--light/--lightgray/--gray/--darkgray/--dark). That's why the
-// sidebars render a flat neutral gray (#f6f6f6) instead of matching
-// the content background -- on the reference Quartz site, sidebars
-// and content share the exact same background (no contrast at all).
-// Map the whole ramp to --light so sidebar backgrounds match content.
+// Root cause of the sidebar-background bug (and the popover-transparency
+// bug below): @layer obsidian-theme doesn't just set --color-base-00
+// through -100 to its own stock grays -- it *also* redefines our five
+// base tokens to point at them indirectly:
+//   --light:     var(--background-primary,   var(--color-base-00))
+//   --lightgray: var(--background-secondary, var(--color-base-20))
+//   --gray:      var(--text-muted,           var(--color-base-70))
+//   --darkgray:  var(--text-normal,          var(--color-base-100))
+//   --dark:      var(--text-normal,          var(--color-base-100))
+// That layer outranks quartz-base (where our literal hex values for
+// these same names live), so anything using --light/--lightgray/etc.
+// was actually reading Obsidian's indirection, not our color. Worse,
+// once something (like the color-base override below) points *back*
+// at --light, it closes a circular reference -- and a circular custom
+// property resolves to its guaranteed-invalid value, which is why the
+// popover background disappeared (semi-transparent) instead of just
+// being the wrong color.
+//
+// Fix at the root: force the five base tokens themselves to concrete,
+// non-circular values (mode-aware), matching quartz.config.yaml's
+// theme.colors. Everything downstream (background-secondary, tab-
+// container-background, popover background, ...) is safe once these
+// don't point back into the ramp.
+:root {
+  --light: #ffffff !important;
+  --lightgray: #e2ddd3 !important;
+  --gray: #85786a !important;
+  --darkgray: #46403a !important;
+  --dark: #171310 !important;
+}
+
+:root[saved-theme="dark"] {
+  --light: #171310 !important;
+  --lightgray: #2b2620 !important;
+  --gray: #6b6156 !important;
+  --darkgray: #c9c2b8 !important;
+  --dark: #f5f3ef !important;
+}
+
+// Sidebar backgrounds should match the content background (no
+// contrast), same as the reference Quartz site -- map the ramp that
+// --background-secondary/--tab-container-background read from to
+// --light, which is now a plain, non-circular value.
 :root {
   --color-base-00: var(--light) !important;
   --color-base-05: var(--light) !important;
