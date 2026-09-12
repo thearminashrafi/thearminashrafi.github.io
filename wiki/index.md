@@ -2,9 +2,9 @@
 title: Notes
 ---
 
-A set of notes based on the ZettelKasten Method, on topics relevant to Machine Learning, Information Theory, and Probability Theory. This means that all notes have been written by myself, word for word. Use of generative text models is limited to my conversations with them, bouncing off ideas, asking them to train me, or give feedback. The final written document is written, word for word, by myself.
+The following are a set of notes based on the ZettelKasten Method, on topics relevant to Machine Learning, Information Theory, and Probability Theory. This means that all notes have been [[Why write anything at all anymore?|written by myself, word for word]]. Use of generative text models is limited to my conversations with them, bouncing off ideas, asking them to train me, or give feedback. 
 
-Here is a nice introduction to ZettelKasten: https://gianmarcodavid.com/posts/zettelkasten/
+Here is a nice introduction to Zettelkasten: https://gianmarcodavid.com/posts/zettelkasten/
 
 ## A few posts to start with
 
